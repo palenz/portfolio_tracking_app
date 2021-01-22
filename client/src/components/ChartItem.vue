@@ -1,12 +1,13 @@
 <template lang="html">
   <div>
-<div>Portfolio List Here</div>
+<div>Chart Item Here</div>
   </div>
+</template>
 </template>
 
 <script>
 export default {
-  name: "stocks-list",
+  name: "chart-item",
 };
 </script>
 

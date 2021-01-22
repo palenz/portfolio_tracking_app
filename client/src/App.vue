@@ -1,28 +1,35 @@
-<template>
+<template lang="html">
+  
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+
+    <header>
+      <h1>Juan's Mighty Share Portfolio</h1>
+      <div>Portfolio Value Goes Here</div>
+    </header>
+
+    <main>
+
+      <stocks-list></stocks-list>  
+      <chart-item></chart-item>
+
+    </main>
+
+
   </div>
+
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import StocksList from "./components/StocksList.vue";
+import ChartItem from "./components/ChartItem.vue";
 export default {
-  name: 'App',
+  name: "app",
   components: {
-    HelloWorld
-  }
-}
+    "stocks-list": StocksList,
+    "chart-item": ChartItem,
+  },
+};
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+<style lang="css" scoped>
 </style>
