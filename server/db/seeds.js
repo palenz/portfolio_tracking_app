@@ -1,7 +1,7 @@
 use shares_portfolio
 db.dropDatabase();
 
-db.portfolio.insertOne({name: "Juan", portfolioValue: 10000});
+db.portfolio.insertOne({name: "Juan", totalCash: 10000});
 db.portfolio.insertMany([
     {
         symbol: "KO",
