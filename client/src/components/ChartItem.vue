@@ -1,9 +1,8 @@
 <template lang="html">
   <div>
-<div>Chart Item Here</div>
+<div>Chart Item Goes Here</div>
   </div>
-</template>
-</template>
+</template> 
 
 <script>
 export default {
