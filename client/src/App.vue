@@ -20,6 +20,7 @@
 </template>
 
 <script>
+
 import StocksList from "./components/StocksList.vue";
 import ChartItem from "./components/ChartItem.vue";
 export default {
