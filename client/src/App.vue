@@ -20,9 +20,11 @@
 </template>
 
 <script>
+
 import PortfolioService from "./services/PortfolioService.js";
 import StocksList from "./components/StocksList.vue";
 import ChartItem from "./components/ChartItem.vue";
+
 export default {
   name: "app",
   components: {
