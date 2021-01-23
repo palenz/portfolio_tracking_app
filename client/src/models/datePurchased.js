@@ -1,8 +1,11 @@
 const today = new Date();
 
-const getTodaysDate = function()  {
+export default {
+    
+    getTodaysDate() {
+    
+        const date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+        return date;
+    },
+}
 
-    const date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
-
-    return date;
-};

@@ -28,20 +28,25 @@
 
 import { eventBus } from '../main.js';
 import PortfolioService from '../services/PortfolioService.js';
+import datePurchased from '../models/datePurchased.js';
 
 export default {
     name: 'PortfolioForm',
     data() {
         return {
             ticker: '',
-            sharesNumber: null,
+            sharesNumber: null
         }
     },
     methods: {
         handleSubmit() {
+            const todaysDate = datePurchased.getTodaysDate();
+            
             const share = {
                 symbol: this.ticker,
                 shares: this.sharesNumber,
+                dateOfPurchase: todaysDate
+                
             };
 
             PortfolioService.postShares(share)
