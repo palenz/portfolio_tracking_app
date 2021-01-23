@@ -3,7 +3,7 @@
         <h2>Add a share to your portfolio</h2>
         <div class="formWrap">
             <label for="ticker">Ticker:</label>
-            <select name="ticker" id="ticker-select">
+            <select name="ticker" id="ticker-select" v-model="ticker">
                 <option value="NFLX">NFLX</option>
                 <option value="FB">FB</option>
                 <option value="LNKD">LNKD</option>
@@ -13,7 +13,7 @@
         </div>
         <div class="formWrap">
             <label for="sharesNumber">Shares Number:</label>
-            <input type="number" name="sharesNumber" id="shares-number">
+            <input type="number" name="sharesNumber" id="shares-number" v-model="sharesNumber">
         </div>
         <div class="formWrap">
             <label for="buyShares">Buy Shares:</label>
