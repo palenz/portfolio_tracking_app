@@ -21,7 +21,7 @@
         </div>
 
     </form>
-  
+
 </template>
 
 <script>
