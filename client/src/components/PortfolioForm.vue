@@ -26,7 +26,7 @@
 
 <script>
 export default {
-    name: 'portfolio-form',
+    name: 'PortfolioForm',
     data() {
         return {
             ticker: '',

@@ -2,13 +2,14 @@
   
   <div id="app">
 
-    <header>
+    <header></header>
       <h1>Juan's Mighty Share Portfolio</h1>
       <div>Portfolio Value Goes Here</div>
     </header>
 
     <main>
 
+      <portfolio-form></portfolio-form>
       <stocks-list></stocks-list>  
       <chart-item></chart-item>
 
@@ -21,6 +22,7 @@
 
 <script>
 
+import PortfolioForm from "./components/PortfolioForm.vue";
 import PortfolioService from "./services/PortfolioService.js";
 import StocksList from "./components/StocksList.vue";
 import ChartItem from "./components/ChartItem.vue";
@@ -30,6 +32,7 @@ export default {
   components: {
     "stocks-list": StocksList,
     "chart-item": ChartItem,
+    "portfolio-form": PortfolioForm
   },
   data() {
     return {
