@@ -3,8 +3,8 @@ const today = new Date();
 export default {
     
     getTodaysDate() {
-    
-        const date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+        let strMonth = (today.getMonth()+1).toString();
+        const date = today.getFullYear()+'-'+(strMonth.padStart(2, '0'))+'-'+today.getDate();
         return date;
     },
 }

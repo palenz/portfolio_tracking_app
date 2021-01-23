@@ -15,7 +15,7 @@ export default {
             .then(res => res.json())
     },
 
-    deleteShares(id) {
+    sellShares(id) {
         return fetch(baseURL + id, {
             method: 'DELETE'
         })
