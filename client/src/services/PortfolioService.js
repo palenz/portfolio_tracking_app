@@ -13,5 +13,11 @@ export default {
             headers: { 'Content-Type': 'application/json' }
         })
             .then(res => res.json())
-    } 
+    },
+
+    deleteShares(id) {
+        return fetch(baseURL + id, {
+            method: 'DELETE'
+        })
+    }
 }
