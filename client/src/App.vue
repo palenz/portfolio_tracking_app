@@ -22,6 +22,7 @@
 
 <script>
 
+import { eventBus } from './main';
 import PortfolioForm from "./components/PortfolioForm.vue";
 import PortfolioService from "./services/PortfolioService.js";
 import StocksList from "./components/StocksList.vue";
@@ -41,6 +42,10 @@ export default {
   },
   mounted() {
     this.getPortfolio();
+
+    eventBus.$on('added-share', share => {
+      this.portfolio.push(share);
+    })
   },
   methods: {
     getPortfolio() {

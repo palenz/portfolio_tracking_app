@@ -13,7 +13,7 @@
         </div>
         <div class="formWrap">
             <label for="sharesNumber">Shares Number:</label>
-            <input type="number" name="sharesNumber" id="shares-number" v-model="sharesNumber">
+            <input type="number" name="sharesNumber" id="shares-number" v-model.number="sharesNumber">
         </div>
         <div class="formWrap">
             <label for="buyShares">Buy Shares:</label>
@@ -25,12 +25,29 @@
 </template>
 
 <script>
+
+import { eventBus } from '../main.js';
+import PortfolioService from '../services/PortfolioService.js';
+
 export default {
     name: 'PortfolioForm',
     data() {
         return {
             ticker: '',
             sharesNumber: null,
+        }
+    },
+    methods: {
+        handleSubmit() {
+            const share = {
+                symbol: this.ticker,
+                shares: this.sharesNumber,
+            };
+
+            PortfolioService.postShares(share)
+                .then(res => {
+                    eventBus.$emit('added-share', res)
+                })
         }
     }
 }
