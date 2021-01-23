@@ -20,7 +20,7 @@
 </template>
 
 <script>
-
+import PortfolioService from "./services/PortfolioService.js";
 import StocksList from "./components/StocksList.vue";
 import ChartItem from "./components/ChartItem.vue";
 export default {
@@ -29,6 +29,21 @@ export default {
     "stocks-list": StocksList,
     "chart-item": ChartItem,
   },
+  data() {
+    return {
+      portfolio: []
+    };
+  },
+  mounted() {
+    this.getPortfolio();
+  },
+  methods: {
+    getPortfolio() {
+      PortfolioService.getPortfolio()
+        .then(portfolio => this.portfolio = portfolio);
+    }
+  }
+
 };
 </script>
 
