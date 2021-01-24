@@ -27,29 +27,35 @@ export default {
     },
 
     sharesSummary: function() {
-      const sharesSummary = [];
-
-      for (let share of this.sharesList) {
-        sharesSummary.push({
-          symbol: share.symbol,
-          shares: share.shares
-        })
-        
-      }
-      // newArray = [
-        // {
-        //   symbol: KO,
-        //   shares: 5
-        // }
-      // ]
+      // new array to push to
+      const sharesSummary = [{
+        symbol: "TWTR",
+        shares: 10
+      }];
 
       // loop through this.sharesList
-        // create an object with 2 keys symbol and shares
       // add symbol and shares to new summary array
+      for (let share of this.sharesList) {
+        let appendShare = true;
+        for (let i of sharesSummary) {
+          if (i.symbol === share.symbol) {
+            i.shares += share.shares;
+            appendShare = false;
+          } 
+        }
+        if (appendShare) {
+          sharesSummary.push({
+            symbol: share.symbol,
+            shares: share.shares
+          })
+        }
       // if symbol exists, add shares
       // if symbol does not exist, add symbol and shares
+        
+      }
+      
 
-      return sharesSummary
+      return sharesSummary;
   }
   }
 };
