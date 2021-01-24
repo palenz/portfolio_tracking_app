@@ -31,31 +31,31 @@ export default {
       const sharesSummary = [];
 
       // Push first object to sharesSummary to allow looping
-      sharesSummary.push(this.sharesList[0]);
+      sharesSummary.push({
+            symbol: this.sharesList[0].symbol,
+            shares: this.sharesList[0].shares
+          });
       // loop through this.sharesList
-      // add symbol and shares to new summary array
       for (let i = 1; i < this.sharesList.length; i++) {
-        let appendShare = true;
+        let pushShare = true;
+        // loop through existing items in sharesSummary
         for (let j of sharesSummary) {
+          // if symbol exists, add shares
           if (j.symbol === this.sharesList[i].symbol) {
             j.shares += this.sharesList[i].shares;
-            appendShare = false;
+            pushShare = false;
           } 
-        }
-        if (appendShare) {
+        };
+        // if symbol does not exist (appendShare = false), add symbol and shares
+        if (pushShare) {
           sharesSummary.push({
             symbol: this.sharesList[i].symbol,
             shares: this.sharesList[i].shares
           })
         }
-      // if symbol exists, add shares
-      // if symbol does not exist, add symbol and shares
-        
-      }
-      
-
+      };
       return sharesSummary;
-  }
+    }
   }
 };
 </script>
