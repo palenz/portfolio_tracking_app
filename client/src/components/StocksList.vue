@@ -28,25 +28,24 @@ export default {
 
     sharesSummary: function() {
       // new array to push to
-      const sharesSummary = [{
-        symbol: "TWTR",
-        shares: 10
-      }];
+      const sharesSummary = [];
 
+      // Push first object to sharesSummary to allow looping
+      sharesSummary.push(this.sharesList[0]);
       // loop through this.sharesList
       // add symbol and shares to new summary array
-      for (let share of this.sharesList) {
+      for (let i = 1; i < this.sharesList.length; i++) {
         let appendShare = true;
-        for (let i of sharesSummary) {
-          if (i.symbol === share.symbol) {
-            i.shares += share.shares;
+        for (let j of sharesSummary) {
+          if (j.symbol === this.sharesList[i].symbol) {
+            j.shares += this.sharesList[i].shares;
             appendShare = false;
           } 
         }
         if (appendShare) {
           sharesSummary.push({
-            symbol: share.symbol,
-            shares: share.shares
+            symbol: this.sharesList[i].symbol,
+            shares: this.sharesList[i].shares
           })
         }
       // if symbol exists, add shares
