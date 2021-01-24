@@ -1,6 +1,15 @@
 <template lang="html">
   <div>
-<div>Portfolio List Here</div>
+<div>
+  
+  <ul>
+
+    <li v-for='share in portfolio'>{{ share.symbol }}, {{ share.shares }}, {{ share.valueAtPurchase }}, {{ share.dateOfPurchase }}</li>
+
+  </ul>
+
+
+</div>
   </div>
 </template>
 
