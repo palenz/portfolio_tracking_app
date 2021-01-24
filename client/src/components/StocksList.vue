@@ -4,7 +4,7 @@
   
   <ul>
 
-    <li v-for='share in sharesList'><span id="ticker">{{ share.symbol }}</span>, {{ share.shares }}, {{ share.valueAtPurchase }}, {{ share.dateOfPurchase }}</li>
+    <li v-for='share in sharesList'>{{ share.symbol }}, {{ share.shares }}, {{ share.valueAtPurchase }}, {{ share.dateOfPurchase }}</li>
 
   </ul>
 
@@ -22,7 +22,7 @@ export default {
   computed: {
     sharesList: function () {
       return this.portfolio.filter(function (item, index) {
-        return item.name !== "Juan"
+        return !item.name 
       } )
     }
   }
