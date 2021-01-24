@@ -1,5 +1,5 @@
 <template lang="html">
-  <div>
+  <div id="stocks-list">
 
     <div id="transaction-history">
       <h3>Transaction History</h3>
@@ -83,4 +83,9 @@ export default {
 </script>
 
 <style lang="css" scoped>
+  #stocks-list {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+  }
 </style>
