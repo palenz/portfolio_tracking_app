@@ -17,7 +17,15 @@
 export default {
   name: "stocks-list",
 
-  props: ['portfolio']
+  props: ['portfolio'],
+
+  computed: {
+    sharesList: function () {
+      return this.portfolio.filter(function (item, index) {
+        return item.name !== "Juan"
+      } )
+    }
+  }
 };
 </script>
 
