@@ -7,6 +7,8 @@
 <script>
 export default {
   name: "stocks-list",
+
+  props: ['portfolio']
 };
 </script>
 

@@ -10,7 +10,7 @@
     <main>
 
       <portfolio-form></portfolio-form>
-      <stocks-list></stocks-list>  
+      <stocks-list :portfolio='portfolio'></stocks-list>  
       <chart-item></chart-item>
 
     </main>
