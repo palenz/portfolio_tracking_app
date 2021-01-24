@@ -4,7 +4,7 @@
   
   <ul>
 
-    <li v-for='share in portfolio'>{{ share.symbol }}, {{ share.shares }}, {{ share.valueAtPurchase }}, {{ share.dateOfPurchase }}</li>
+    <li v-for='share in sharesList'><span id="ticker">{{ share.symbol }}</span>, {{ share.shares }}, {{ share.valueAtPurchase }}, {{ share.dateOfPurchase }}</li>
 
   </ul>
 
