@@ -1,15 +1,22 @@
 <template lang="html">
   <div>
-<div>
-  
-  <ul>
+    <div id="portfolio-summary">
+      <h3>Portfolio Summary</h3>
+      <ul>
+        <li v-for='share in sharesSummary'>
+          <p>{{share.symbol}}: {{share.shares}} shares </p>
+        </li>
+      </ul>
+    </div>
 
-    <li v-for='share in sharesList'>{{ share.symbol }}, {{ share.shares }}, {{ share.valueAtPurchase }}, {{ share.dateOfPurchase }}</li>
-
-  </ul>
-
-
-</div>
+    <div id="transaction-history">
+      <h3>Transaction History</h3>
+      <ul>
+        <li v-for='share in sharesList'>
+          {{ share.symbol }}, {{ share.shares }}, {{ share.valueAtPurchase }}, {{ share.dateOfPurchase }}
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
 
