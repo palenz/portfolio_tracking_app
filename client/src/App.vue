@@ -11,10 +11,9 @@
 
       <stocks-list></stocks-list>  
       <chart-item></chart-item>
-      <stock-item :latestStockPrice='latestStockPrice'></stock-item>
+      <stock-item></stock-item>
 
     </main>
-
 
   </div>
 
@@ -35,34 +34,39 @@ export default {
   },
   data(){
     return{
-      latestStockPrice: null,
-      selectedStock: ""
+      singleStockData: null,
+      portfolioLimitedPerformance: []
     }
   },
   methods: {
-  
-    fetchStocks: function(ticker){
-      const url = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${ticker}&outputsize=compact&apikey=C6DT0GSGVYAGQ4TA`
+
+    obj: function stockObject(ticker, performance) {
+        this.ticker = ticker;
+        this.performance = performance
+    },
     
+
+    fetchStockData: function(ticker){
+      const url = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${ticker}&outputsize=compact&apikey=C6DT0GSGVYAGQ4TA`
       fetch(url)
       .then(res => res.json())
       .then(data => {
-        const obj = data['Time Series (Daily)'];
-        const arr = Object.values(obj);
-        const latestEntry = arr[0];
-      this.latestStockPrice = latestEntry['4. close']    
-    })
-  }
+        let objOfDays = data["Time Series (Daily)"]
+
+        for (let day in objOfDays){
+          var performance = { date: day, price: objOfDays[day]["4. close"] };
+          console.log(performance)
+
+          var stock = {ticker: ticker, performance: performance};
+          console.log(stock)
+          this.portfolioLimitedPerformance.push(stock)
+        }
+      })
+    }
   },
 
   mounted() {
-    eventBus.$on('stock-selected', (stock) => {
-      this.selectedStock = stock
-      this.fetchStocks(this.selectedStock)
-      })
-      
-      
-
+    this.fetchStockData('AAPL')    
   }
 };
 

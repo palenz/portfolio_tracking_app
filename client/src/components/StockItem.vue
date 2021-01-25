@@ -1,6 +1,5 @@
 <template lang="html">
 <div>
-  <!-- {{latestStockPrice}} hi -->
   
   <form v-on:submit.prevent='handleStockSubmit'>
     <label for='selected-stock'>Enter New Ticker:</label>
@@ -8,7 +7,10 @@
     <input type='submit' value='Enter Ticker'/>
   </form>
 
-  <p v-if='latestStockPrice'>The latest price for {{selectedStock}} is {{latestStockPrice}}</p>
+  <p v-if='latestStockPrice'>The latest price for {{selectedStock}} is {{latestStockPrice}}
+      <button v-on:click=getPrices>Save the last 100 prices</button>
+  </p>
+
 
 
 </div>
@@ -32,7 +34,18 @@ export default {
     methods: {
         handleStockSubmit(){
             eventBus.$emit('stock-selected', this.selectedStock)
+        },
+        
+        getPrices: function (ticker) {
+        
+        },
+        
+        gatherLimitedPerformance: function (ticker){
+            oneHundredDays = [];
+            oneHundredDays.push()
         }
+        
+        
     }
 
 };
