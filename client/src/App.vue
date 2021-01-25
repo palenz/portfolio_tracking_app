@@ -54,14 +54,14 @@ export default {
       .then(data => {
         let objOfDays = data["Time Series (Daily)"]
 
+        const performanceArray = []
+
         for (let day in objOfDays){
           var performance = { date: day, price: objOfDays[day]["4. close"] };
-          console.log(performance)
-
-          var stock = {ticker: ticker, performance: performance};
-          console.log(stock)
-          this.portfolioLimitedPerformance.push(stock)
+          performanceArray.push(performance)
         }
+        var stock = {ticker: ticker, performance: performanceArray}
+        this.portfolioLimitedPerformance.push(stock)
       })
     }
   },
