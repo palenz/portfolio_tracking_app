@@ -3,6 +3,7 @@
 
     <div v-if='sharesList.length > 0'id="portfolio-summary">
       <h3>Portfolio Summary</h3>
+      <button v-on:click="showTransactions=sharesList">Show All Transactions</button>
       <ul>
         <li v-for='share in sharesSummary'>
           <p>{{share.symbol}}: {{share.shares}} shares </p>
