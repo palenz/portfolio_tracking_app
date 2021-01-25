@@ -11,12 +11,16 @@ const apistockdata =
 
 // console.log(apistockdata[1]["ticker"]);
 
+const chartData = []
 
 const headers = ["date"]
-headers.push(apistockdata["ticker"])
+headers.push(portfolioLimitedPerformance["ticker"])
 
-const chartData = Object.entries(apistockdata["performance"])
-chartData.unshift(headers)
+const shareChartData = Object.entries(portfolioLimitedPerformance["performance"])
+shareChartData.unshift(headers)
+
+return chartData
 
 
-console.log(chartData)
+console.log(shareChartData)
+

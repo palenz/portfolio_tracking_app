@@ -11,7 +11,7 @@
 
       <portfolio-form></portfolio-form>
       <stocks-list :portfolio='portfolio'></stocks-list>  
-      <chart-item></chart-item>
+      <chart-item :portfolioLimitedPerformance='portfolioLimitedPerformance'></chart-item>
       <stock-item></stock-item>
 
     </main>
