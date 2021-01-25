@@ -4,9 +4,11 @@
 
     <div id="portfolio-summary">
 
-      <button v-on:click="fetchLatestPrice('KO')">Test Fetch</button>
+      <button v-on:click="fetchLatestPrice('NFLX')">Test Fetch</button>
+      <button v-on:click="getSharesPrices">Update Price in Summary</button>
 
       <h3>Portfolio Summary</h3>
+      <p>{{price}}</p>
       <button v-on:click="showTransactions=portfolio">Show All Transactions</button>
       <ul>
         <li v-for='share in sharesSummary'>
@@ -52,7 +54,7 @@ export default {
     return {
       showTransactions: null,
       price: null,
-      sharesSummary: null,
+      sharesSummary: null
     }
   },
   props: ['portfolio'],
@@ -77,14 +79,11 @@ export default {
     getSharesSummary: function() {
       // new array to push to
       const sharesSummary = [];
-      // Fetch latest price of first share in portfolio
-      // this.fetchLatestPrice(this.portfolio[0].symbol);
       
       // Push first object to sharesSummary to allow looping
       sharesSummary.push({
-        symbol: this.portfolio[0].symbol,
-            shares: this.portfolio[0].shares,
-            latestPrice: this.price
+            symbol: this.portfolio[0].symbol,
+            shares: this.portfolio[0].shares
           });
       // loop through this.portfolio
       for (let i = 1; i < this.portfolio.length; i++) {
@@ -97,17 +96,24 @@ export default {
             pushShare = false;
           } 
         };
-        // if symbol does not exist (appendShare = false), add symbol and shares
+        // if symbol does not exist (pushShare = false), add symbol and shares
         if (pushShare) {
-          console.log('i: ', i, ' symbol: ', this.portfolio[i].symbol)
           sharesSummary.push({
             symbol: this.portfolio[i].symbol,
-            shares: this.portfolio[i].shares,
+            shares: this.portfolio[i].shares
           })
         }
       };
-      console.log('end loop')
       this.sharesSummary = sharesSummary;
+    },
+    getSharesPrices: function() {
+      console.log('hello')
+      for (let share of this.sharesSummary){
+        console.log(share.symbol)
+        console.log(this.price)
+        // this.fetchLatestPrice(share.symbol)
+        share.value = this.price;
+      }
     }
   },
   created(){
