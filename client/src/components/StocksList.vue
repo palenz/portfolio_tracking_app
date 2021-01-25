@@ -2,7 +2,7 @@
   <div id="stocks-list">
 
 
-    <div v-if='portfolio.length > 0'id="portfolio-summary">
+    <div id="portfolio-summary">
 
       <button v-on:click="fetchLatestPrice('KO')">Test Fetch</button>
 
@@ -51,7 +51,8 @@ export default {
   data() {
     return {
       showTransactions: null,
-      price: null
+      price: null,
+      sharesSummary: null,
     }
   },
   props: ['portfolio'],
@@ -72,19 +73,16 @@ export default {
         const latestEntry = arr[0];
       this.price = latestEntry['4. close']
       })
-    }
-  },
-  computed: {
-    sharesSummary: function() {
+    },
+    getSharesSummary: function() {
       // new array to push to
       const sharesSummary = [];
-
       // Fetch latest price of first share in portfolio
-      this.fetchLatestPrice(this.portfolio[0].symbol);
+      // this.fetchLatestPrice(this.portfolio[0].symbol);
       
       // Push first object to sharesSummary to allow looping
       sharesSummary.push({
-            symbol: this.portfolio[0].symbol,
+        symbol: this.portfolio[0].symbol,
             shares: this.portfolio[0].shares,
             latestPrice: this.price
           });
@@ -109,8 +107,14 @@ export default {
         }
       };
       console.log('end loop')
-      return sharesSummary;
+      this.sharesSummary = sharesSummary;
     }
+  },
+  created(){
+    this.getSharesSummary();
+  },
+  computed: {
+    
   }
 
 };
