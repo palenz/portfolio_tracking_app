@@ -4,8 +4,8 @@
 
     <div id="portfolio-summary">
 
-      <button v-on:click="fetchLatestPrice('NFLX')">Test Fetch</button>
-      <button v-on:click="getSharesPrices">Update Price in Summary</button>
+      <button v-on:click='fetchMultiplePrices(["KO", "TWTR", "NFLX"])'>Test Fetch</button>
+      <button v-on:click="getSharesPrices">update summary</button>
 
       <h3>Portfolio Summary</h3>
       <p>{{price}}</p>
@@ -54,6 +54,7 @@ export default {
     return {
       showTransactions: null,
       price: null,
+      prices: [],
       sharesSummary: null
     }
   },
@@ -75,6 +76,25 @@ export default {
         const latestEntry = arr[0];
       this.price = latestEntry['4. close']
       })
+    },
+    fetchMultiplePrices: function(symbolList){
+      // const symbolList = ["KO", "TWTR", "NFLX"]
+      const promises = symbolList.map(ticker => {
+        return fetch(
+          `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${ticker}&outputsize=compact&apikey=${keys.key2}`
+        ).then(res => res.json())
+      })
+      console.log(promises)
+      Promise.all(promises)
+        .then(data => {
+          console.log(data)
+          for (let item of data){
+            const obj = item['Time Series (Daily)'];
+            const arr = Object.values(obj);
+            const latestEntry = arr[0];
+          this.prices.push(latestEntry['4. close'])
+          }
+        })
     },
     getSharesSummary: function() {
       // new array to push to
@@ -108,11 +128,8 @@ export default {
     },
     getSharesPrices: function() {
       console.log('hello')
-      for (let share of this.sharesSummary){
-        console.log(share.symbol)
-        console.log(this.price)
-        // this.fetchLatestPrice(share.symbol)
-        share.value = this.price;
+      for (let i = 0; i < this.sharesSummary.length; i++){
+        this.sharesSummary[i].latestPrice = this.prices[i]
       }
     }
   },
