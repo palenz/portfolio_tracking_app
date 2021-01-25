@@ -29,7 +29,7 @@
       <ul>
         <li v-for='share in sharesSummary'>
           <p>{{share.symbol}}: {{share.shares}} shares </p>
-          <button>Show {{share.symbol}} Transactions</button>
+          <button v-on:click="filterTransactions(share.symbol)">Show {{share.symbol}} Transactions</button>
         </li>
       </ul>
     </div>
@@ -39,8 +39,19 @@
 <script>
 export default {
   name: "stocks-list",
+  data() {
+    return {
+      showTransactions: null
+    }
+  },
   props: ['portfolio'],
-
+  methods: {
+    filterTransactions: function(tickerSymbol) {
+      this.showTransactions = this.sharesList.filter(share => {
+        return share.symbol === tickerSymbol;
+      })
+    }
+  },
   computed: {
     sharesList: function () {
       return this.portfolio.filter(function (item) {
