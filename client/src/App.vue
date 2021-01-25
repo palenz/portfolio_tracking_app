@@ -24,7 +24,7 @@ import StocksList from "./components/StocksList.vue";
 import ChartItem from "./components/ChartItem.vue";
 import StockItem from "./components/StockItem.vue";
 import { eventBus } from './main.js';
-import keys from './keys.js'
+import keys from '../.env/keys.js'
 
 export default {
   name: "app",
