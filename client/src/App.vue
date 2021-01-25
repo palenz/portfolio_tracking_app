@@ -2,14 +2,15 @@
   
   <div id="app">
 
-    <header>
+    <header></header>
       <h1>Juan's Mighty Share Portfolio</h1>
       <div>Portfolio Value Goes Here</div>
     </header>
 
     <main>
 
-      <stocks-list></stocks-list>  
+      <portfolio-form></portfolio-form>
+      <stocks-list :portfolio='portfolio'></stocks-list>  
       <chart-item></chart-item>
       <stock-item></stock-item>
 
@@ -20,10 +21,13 @@
 </template>
 
 <script>
+
+import { eventBus } from './main';
+import PortfolioForm from "./components/PortfolioForm.vue";
+import PortfolioService from "./services/PortfolioService.js";
 import StocksList from "./components/StocksList.vue";
 import ChartItem from "./components/ChartItem.vue";
 import StockItem from "./components/StockItem.vue";
-import { eventBus } from './main.js';
 import keys from '../.env/keys.js'
 
 export default {
@@ -31,31 +35,26 @@ export default {
   components: {
     "stocks-list": StocksList,
     "chart-item": ChartItem,
-    "stock-item": StockItem
+    "stock-item": StockItem,
+    "portfolio-form": PortfolioForm
   },
   data(){
     return{
-      singleStockData: null,
-      portfolioLimitedPerformance: []
+      portfolioLimitedPerformance: [],
+      portfolio: [],
+      selectedStock: null
     }
   },
+
   methods: {
-
-    obj: function stockObject(ticker, performance) {
-        this.ticker = ticker;
-        this.performance = performance
-    },
-    
-
+  
     fetchStockData: function(ticker){
       const url = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${ticker}&outputsize=compact&apikey=${keys.key1}`
       fetch(url)
       .then(res => res.json())
       .then(data => {
         let objOfDays = data["Time Series (Daily)"]
-
         const performanceArray = []
-
         for (let day in objOfDays){
           var performance = { date: day, price: objOfDays[day]["4. close"] };
           performanceArray.push(performance)
@@ -63,16 +62,27 @@ export default {
         var stock = {ticker: ticker, performance: performanceArray}
         this.portfolioLimitedPerformance.push(stock)
       })
+    },
+
+    getPortfolio() {
+      PortfolioService.getPortfolio()
+        .then(portfolio => this.portfolio = portfolio);
     }
   },
 
   mounted() {
-    this.fetchStockData('AAPL')    
+    this.fetchStockData('AAPL');
+    this.getPortfolio();
+    eventBus.$on('added-share', share => {
+      this.portfolio.push(share);
+    });
   }
+
 };
 
 
 </script>
 
 <style lang="css" scoped>
+
 </style>
