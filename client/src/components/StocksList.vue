@@ -1,6 +1,16 @@
 <template lang="html">
   <div id="stocks-list">
 
+    <div v-if='sharesList.length > 0'id="portfolio-summary">
+      <h3>Portfolio Summary</h3>
+      <ul>
+        <li v-for='share in sharesSummary'>
+          <p>{{share.symbol}}: {{share.shares}} shares </p>
+          <button v-on:click="filterTransactions(share.symbol)">Show {{share.symbol}} Transactions</button>
+        </li>
+      </ul>
+    </div>
+
     <div v-if='showTransactions'id="transaction-history">
       <h3>Transaction History</h3>
       <table class="table">
@@ -22,17 +32,9 @@
         </tbody>
 
       </table>
+    </div>
 
-    </div>
-    <div v-if='sharesList.length > 0'id="portfolio-summary">
-      <h3>Portfolio Summary</h3>
-      <ul>
-        <li v-for='share in sharesSummary'>
-          <p>{{share.symbol}}: {{share.shares}} shares </p>
-          <button v-on:click="filterTransactions(share.symbol)">Show {{share.symbol}} Transactions</button>
-        </li>
-      </ul>
-    </div>
+
   </div>
 </template>
 
@@ -97,7 +99,7 @@ export default {
 <style lang="css" scoped>
   #stocks-list {
     display: flex;
-    flex-direction: row-reverse;
+    flex-direction: row;
     justify-content: space-between;
   }
 </style>
