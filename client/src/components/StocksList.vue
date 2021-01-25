@@ -24,7 +24,7 @@
       </table>
 
     </div>
-    <div id="portfolio-summary">
+    <div v-if='sharesList.length > 0'id="portfolio-summary">
       <h3>Portfolio Summary</h3>
       <ul>
         <li v-for='share in sharesSummary'>
@@ -38,12 +38,11 @@
 <script>
 export default {
   name: "stocks-list",
-
   props: ['portfolio'],
 
   computed: {
     sharesList: function () {
-      return this.portfolio.filter(function (item, index) {
+      return this.portfolio.filter(function (item) {
         return !item.name 
       } )
     },
@@ -51,7 +50,7 @@ export default {
     sharesSummary: function() {
       // new array to push to
       const sharesSummary = [];
-
+      
       // Push first object to sharesSummary to allow looping
       sharesSummary.push({
             symbol: this.sharesList[0].symbol,
@@ -79,6 +78,7 @@ export default {
       return sharesSummary;
     }
   }
+
 };
 </script>
 
