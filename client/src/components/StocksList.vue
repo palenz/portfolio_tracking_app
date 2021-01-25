@@ -2,12 +2,12 @@
   <div id="stocks-list">
 
 
-    <div v-if='sharesList.length > 0'id="portfolio-summary">
+    <div v-if='portfolio.length > 0'id="portfolio-summary">
 
       <button v-on:click="fetchLatestPrice('KO')">Test Fetch</button>
 
       <h3>Portfolio Summary</h3>
-      <button v-on:click="showTransactions=sharesList">Show All Transactions</button>
+      <button v-on:click="showTransactions=portfolio">Show All Transactions</button>
       <ul>
         <li v-for='share in sharesSummary'>
           <p>{{share.symbol}}: {{share.shares}} shares </p>
@@ -57,7 +57,7 @@ export default {
   props: ['portfolio'],
   methods: {
     filterTransactions: function(tickerSymbol) {
-      this.showTransactions = this.sharesList.filter(share => {
+      this.showTransactions = this.portfolio.filter(share => {
         return share.symbol === tickerSymbol;
       })
     },
@@ -75,42 +75,36 @@ export default {
     }
   },
   computed: {
-    sharesList: function () {
-      return this.portfolio.filter(function (item) {
-        return !item.name 
-      } )
-    },
-
     sharesSummary: function() {
       // new array to push to
       const sharesSummary = [];
 
       // Fetch latest price of first share in portfolio
-      this.fetchLatestPrice(this.sharesList[0].symbol);
+      this.fetchLatestPrice(this.portfolio[0].symbol);
       
       // Push first object to sharesSummary to allow looping
       sharesSummary.push({
-            symbol: this.sharesList[0].symbol,
-            shares: this.sharesList[0].shares,
+            symbol: this.portfolio[0].symbol,
+            shares: this.portfolio[0].shares,
             latestPrice: this.price
           });
-      // loop through this.sharesList
-      for (let i = 1; i < this.sharesList.length; i++) {
+      // loop through this.portfolio
+      for (let i = 1; i < this.portfolio.length; i++) {
         let pushShare = true;
         // loop through existing items in sharesSummary
         for (let j of sharesSummary) {
           // if symbol exists, add shares
-          if (j.symbol === this.sharesList[i].symbol) {
-            j.shares += this.sharesList[i].shares;
+          if (j.symbol === this.portfolio[i].symbol) {
+            j.shares += this.portfolio[i].shares;
             pushShare = false;
           } 
         };
         // if symbol does not exist (appendShare = false), add symbol and shares
         if (pushShare) {
-          console.log('i: ', i, ' symbol: ', this.sharesList[i].symbol)
+          console.log('i: ', i, ' symbol: ', this.portfolio[i].symbol)
           sharesSummary.push({
-            symbol: this.sharesList[i].symbol,
-            shares: this.sharesList[i].shares,
+            symbol: this.portfolio[i].symbol,
+            shares: this.portfolio[i].shares,
           })
         }
       };
