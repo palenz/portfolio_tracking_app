@@ -44,7 +44,7 @@
 </template>
 
 <script>
-import apiKeys from '../../apiKeys.js'
+import keys from '../keys.js'
 
 export default {
   name: "stocks-list",
@@ -62,7 +62,7 @@ export default {
       })
     },
     fetchLatestPrice: function(ticker){
-      const url = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${ticker}&outputsize=compact&apikey=${apiKeys.key2}`
+      const url = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${ticker}&outputsize=compact&apikey=${keys.key2}`
     
       fetch(url)
       .then(res => res.json())
@@ -84,7 +84,7 @@ export default {
     sharesSummary: function() {
       // new array to push to
       const sharesSummary = [];
-      
+
       // Push first object to sharesSummary to allow looping
       sharesSummary.push({
             symbol: this.sharesList[0].symbol,

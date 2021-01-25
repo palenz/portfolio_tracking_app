@@ -23,6 +23,6 @@ pnpm-debug.log*
 *.sw?
 
 # API keys
-apiKeys.js
+src/keys.js
 
 package-lock.json
