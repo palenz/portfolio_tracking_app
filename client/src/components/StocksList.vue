@@ -1,7 +1,11 @@
 <template lang="html">
   <div id="stocks-list">
 
+
     <div v-if='sharesList.length > 0'id="portfolio-summary">
+
+      <button v-on:click="fetchLatestPrice('KO')">Test Fetch</button>
+
       <h3>Portfolio Summary</h3>
       <button v-on:click="showTransactions=sharesList">Show All Transactions</button>
       <ul>
@@ -40,11 +44,14 @@
 </template>
 
 <script>
+import apiKeys from '../../apiKeys.js'
+
 export default {
   name: "stocks-list",
   data() {
     return {
-      showTransactions: null
+      showTransactions: null,
+      price: null
     }
   },
   props: ['portfolio'],
@@ -52,6 +59,18 @@ export default {
     filterTransactions: function(tickerSymbol) {
       this.showTransactions = this.sharesList.filter(share => {
         return share.symbol === tickerSymbol;
+      })
+    },
+    fetchLatestPrice: function(ticker){
+      const url = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${ticker}&outputsize=compact&apikey=${apiKeys.key2}`
+    
+      fetch(url)
+      .then(res => res.json())
+      .then(data => {
+        const obj = data['Time Series (Daily)'];
+        const arr = Object.values(obj);
+        const latestEntry = arr[0];
+      this.price = latestEntry['4. close']    
       })
     }
   },
