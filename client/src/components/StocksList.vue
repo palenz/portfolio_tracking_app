@@ -29,6 +29,7 @@
       <ul>
         <li v-for='share in sharesSummary'>
           <p>{{share.symbol}}: {{share.shares}} shares </p>
+          <button>Show {{share.symbol}} Transactions</button>
         </li>
       </ul>
     </div>
