@@ -63,14 +63,14 @@ export default {
     },
     fetchLatestPrice: function(ticker){
       const url = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${ticker}&outputsize=compact&apikey=${keys.key2}`
-    
+
       fetch(url)
       .then(res => res.json())
       .then(data => {
         const obj = data['Time Series (Daily)'];
         const arr = Object.values(obj);
         const latestEntry = arr[0];
-      this.price = latestEntry['4. close']    
+      this.price = latestEntry['4. close']
       })
     }
   },
@@ -85,10 +85,14 @@ export default {
       // new array to push to
       const sharesSummary = [];
 
+      // Fetch latest price of first share in portfolio
+      this.fetchLatestPrice(this.sharesList[0].symbol);
+      
       // Push first object to sharesSummary to allow looping
       sharesSummary.push({
             symbol: this.sharesList[0].symbol,
-            shares: this.sharesList[0].shares
+            shares: this.sharesList[0].shares,
+            latestPrice: this.price
           });
       // loop through this.sharesList
       for (let i = 1; i < this.sharesList.length; i++) {
@@ -103,12 +107,14 @@ export default {
         };
         // if symbol does not exist (appendShare = false), add symbol and shares
         if (pushShare) {
+          console.log('i: ', i, ' symbol: ', this.sharesList[i].symbol)
           sharesSummary.push({
             symbol: this.sharesList[i].symbol,
-            shares: this.sharesList[i].shares
+            shares: this.sharesList[i].shares,
           })
         }
       };
+      console.log('end loop')
       return sharesSummary;
     }
   }

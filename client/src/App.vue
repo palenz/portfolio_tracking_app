@@ -37,7 +37,8 @@ export default {
   },
   data() {
     return {
-      portfolio: []
+      portfolio: [],
+      portfolioOwner: ""
     };
   },
   mounted() {
@@ -50,7 +51,11 @@ export default {
   methods: {
     getPortfolio() {
       PortfolioService.getPortfolio()
-        .then(portfolio => this.portfolio = portfolio);
+        .then(portfolio => {
+          const owner = portfolio.shift();
+          this.portfolioOwner = owner;
+          this.portfolio = portfolio;
+          });
     }
   }
 
