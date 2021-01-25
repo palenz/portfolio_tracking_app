@@ -1,7 +1,7 @@
 <template lang="html">
   <div id="stocks-list">
 
-    <div id="transaction-history">
+    <div v-if='showTransactions'id="transaction-history">
       <h3>Transaction History</h3>
       <table class="table">
         <thead class="table-header">
