@@ -13,7 +13,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr class="table-row" v-for='share in sharesList'>
+          <tr class="table-row" v-for='share in showTransactions'>
             <td>{{share.symbol}}</td>
             <td>{{share.shares}}</td>
             <td>{{share.valueAtPurchase}}</td>
