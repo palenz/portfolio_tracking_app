@@ -4,7 +4,7 @@
 
     <div id="portfolio-summary">
 
-      <button v-on:click='fetchMultiplePrices(["KO", "TWTR", "NFLX"])'>Test Fetch</button>
+      <button v-on:click='fetchMultiplePrices(ownedShareSymbols)'>Test Fetch</button>
       <button v-on:click="getSharesPrices">update summary</button>
 
       <h3>Portfolio Summary</h3>
@@ -55,6 +55,7 @@ export default {
       showTransactions: null,
       price: null,
       prices: [],
+      ownedShareSymbols: [],
       sharesSummary: null
     }
   },
@@ -105,6 +106,7 @@ export default {
             symbol: this.portfolio[0].symbol,
             shares: this.portfolio[0].shares
           });
+      this.ownedShareSymbols.push(this.portfolio[0].symbol);
       // loop through this.portfolio
       for (let i = 1; i < this.portfolio.length; i++) {
         let pushShare = true;
@@ -122,6 +124,7 @@ export default {
             symbol: this.portfolio[i].symbol,
             shares: this.portfolio[i].shares
           })
+          this.ownedShareSymbols.push(this.portfolio[i].symbol);
         }
       };
       this.sharesSummary = sharesSummary;
