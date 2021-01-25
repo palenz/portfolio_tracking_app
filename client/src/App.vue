@@ -24,6 +24,7 @@ import StocksList from "./components/StocksList.vue";
 import ChartItem from "./components/ChartItem.vue";
 import StockItem from "./components/StockItem.vue";
 import { eventBus } from './main.js';
+import keys from './keys.js'
 
 export default {
   name: "app",
@@ -47,7 +48,7 @@ export default {
     
 
     fetchStockData: function(ticker){
-      const url = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${ticker}&outputsize=compact&apikey=C6DT0GSGVYAGQ4TA`
+      const url = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${ticker}&outputsize=compact&apikey=${keys.key1}`
       fetch(url)
       .then(res => res.json())
       .then(data => {
