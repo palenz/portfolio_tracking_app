@@ -131,7 +131,7 @@ export default {
   },
   created(){
     this.getSharesSummary();
-    this.fetchMultiplePrices(this.ownedShareSymbols);
+    // this.fetchMultiplePrices(this.ownedShareSymbols);
   },
   computed: {
     portfolioValue: function(){
@@ -141,6 +141,11 @@ export default {
       }
       return total;
     },
+  },
+  watch: {
+    portfolio: function (val){
+      this.getSharesSummary();
+    }
   },
   filters: {
     numberFilter: function(number){
