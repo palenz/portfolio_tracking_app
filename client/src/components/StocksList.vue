@@ -41,6 +41,15 @@
         </tbody>
 
       </table>
+
+    </div>
+    <div v-if='sharesList.length > 0'id="portfolio-summary">
+      <h3>Portfolio Summary</h3>
+      <ul>
+        <li v-for='share in sharesSummary'>
+          <p>{{share.symbol}}: {{share.shares}}: {{share.price}}</p>
+        </li>
+      </ul>
     </div>
 
 

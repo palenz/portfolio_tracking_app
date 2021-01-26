@@ -40,7 +40,7 @@ export default {
 
   data(){
     return{
-      portfolioLimitedPerformance: [],
+      stockLimitedPerformance: [],
       portfolio: [],
       selectedStock: null,
       portfolioOwner: ""
@@ -48,20 +48,20 @@ export default {
   },
 
   methods: {
-    fetchStockData: function (ticker) {
-      const url = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${ticker}&outputsize=compact&apikey=${keys.key1}`;
+    fetchStockData: function(ticker){
+      const url = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${ticker}&outputsize=compact&apikey=${keys.key1}`
       fetch(url)
-        .then((res) => res.json())
-        .then((data) => {
-          let objOfDays = data["Time Series (Daily)"];
-          const performanceArray = [];
-          for (let day in objOfDays) {
-            var performance = { date: day, price: parseFloat(objOfDays[day]["4. close"]) };
-            performanceArray.push(performance);
-          }
-          var stock = { ticker: ticker, performance: performanceArray };
-          this.portfolioLimitedPerformance.push(stock);
-        });
+      .then(res => res.json())
+      .then(data => {
+        let objOfDays = data["Time Series (Daily)"]
+        const performanceArray = []
+        for (let day in objOfDays){
+          var performance = { date: day, price: objOfDays[day]["4. close"] };
+          performanceArray.push(performance)
+        }
+        var stock = {ticker: ticker, performance: performanceArray}
+        this.stockLimitedPerformance = stock
+      })
     },
 
     getPortfolio() {
@@ -74,13 +74,22 @@ export default {
     }
   },
 
-  mounted() {
-    this.fetchStockData("CRM");
-    this.getPortfolio();
-    eventBus.$on("added-share", (share) => {
-      this.portfolio.push(share);
-    });
+  watch:{
+    selectedStock(val){
+      this.fetchStockData(val)
+    }
   },
+
+  mounted() {
+    
+    this.getPortfolio();
+  
+    eventBus.$on('selected-stock', (selectedStock) => {
+    this.selectedStock = selectedStock
+    })
+
+  }
+
 };
 </script>
 
