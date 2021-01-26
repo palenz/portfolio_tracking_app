@@ -4,7 +4,7 @@
     <div id="portfolio-summary">
 
       <h3>Portfolio Summary</h3>
-      <h4 v-if="portfolioValue" >Total Portfolio Value: ${{portfolioValue | numberFilter}}</h4>
+      <h4 v-if="currentPortfolioValue" >Total Portfolio Value: ${{currentPortfolioValue | numberFilter}}</h4>
       <button v-on:click="getSharesPrices">update summary</button>
 
       <button v-on:click="showTransactions=portfolio">Show All Transactions</button>
@@ -48,7 +48,7 @@
 </template>
 
 <script>
-import keys from '../../.env/keys.js'
+import keys from "../../.env/keys.js";
 
 export default {
   name: "stocks-list",
@@ -57,44 +57,43 @@ export default {
       showTransactions: null,
       prices: [],
       ownedShareSymbols: [],
-      sharesSummary: null
-    }
+      sharesSummary: null,
+    };
   },
-  props: ['portfolio'],
+  props: ["portfolio"],
   methods: {
-    filterTransactions: function(tickerSymbol) {
-      this.showTransactions = this.portfolio.filter(share => {
+    filterTransactions: function (tickerSymbol) {
+      this.showTransactions = this.portfolio.filter((share) => {
         return share.symbol === tickerSymbol;
-      })
+      });
     },
-    fetchMultiplePrices: function(symbolList){
-      const promises = symbolList.map(ticker => {
+    fetchMultiplePrices: function (symbolList) {
+      const promises = symbolList.map((ticker) => {
         return fetch(
           `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${ticker}&outputsize=compact&apikey=${keys.key2}`
-        ).then(res => res.json())
-      })
-      console.log(promises)
-      Promise.all(promises)
-        .then(data => {
-          console.log(data)
-          for (let item of data){
-            const obj = item['Time Series (Daily)'];
-            const arr = Object.values(obj);
-            const latestEntry = arr[0];
-          this.prices.push(parseFloat(latestEntry['4. close']))
-          }
-        })
+        ).then((res) => res.json());
+      });
+      console.log(promises);
+      Promise.all(promises).then((data) => {
+        console.log(data);
+        for (let item of data) {
+          const obj = item["Time Series (Daily)"];
+          const arr = Object.values(obj);
+          const latestEntry = arr[0];
+          this.prices.push(parseFloat(latestEntry["4. close"]));
+        }
+      });
     },
-    getSharesSummary: function() {
+    getSharesSummary: function () {
       // new array to push to
       const sharesSummary = [];
-      
+
       // Push first object to sharesSummary to allow looping
       sharesSummary.push({
-            symbol: this.portfolio[0].symbol,
-            shares: this.portfolio[0].shares,
-            latestPrice: 0
-          });
+        symbol: this.portfolio[0].symbol,
+        shares: this.portfolio[0].shares,
+        latestPrice: 0,
+      });
       this.ownedShareSymbols.push(this.portfolio[0].symbol);
       // loop through this.portfolio
       for (let i = 1; i < this.portfolio.length; i++) {
@@ -105,60 +104,59 @@ export default {
           if (j.symbol === this.portfolio[i].symbol) {
             j.shares += this.portfolio[i].shares;
             pushShare = false;
-          } 
-        };
+          }
+        }
         // if symbol does not exist (pushShare = false), add symbol and shares
         if (pushShare) {
           sharesSummary.push({
             symbol: this.portfolio[i].symbol,
             shares: this.portfolio[i].shares,
-            latestPrice: 0
-          })
+            latestPrice: 0,
+          });
           this.ownedShareSymbols.push(this.portfolio[i].symbol);
         }
-      };
+      }
       this.sharesSummary = sharesSummary;
     },
-    
-    getSharesPrices: function() {
-      console.log('hello')
-      for (let i = 0; i < this.sharesSummary.length; i++){
-        console.log(this.prices[i])
-        this.sharesSummary[i].latestPrice = this.prices[i]
+
+    getSharesPrices: function () {
+      console.log("hello");
+      for (let i = 0; i < this.sharesSummary.length; i++) {
+        console.log(this.prices[i]);
+        this.sharesSummary[i].latestPrice = this.prices[i];
       }
-    }
+    },
   },
-  created(){
+  created() {
     this.getSharesSummary();
-    this.fetchMultiplePrices(this.ownedShareSymbols);
+    // this.fetchMultiplePrices(this.ownedShareSymbols);
   },
   computed: {
-    portfolioValue: function(){
+    currentPortfolioValue: function () {
       let total = 0;
-      for (let share of this.sharesSummary){
-        total += (share.latestPrice * share.shares)
+      for (let share of this.sharesSummary) {
+        total += share.latestPrice * share.shares;
       }
       return total;
     },
   },
   watch: {
-    portfolio: function (val){
+    portfolio: function (val) {
       this.getSharesSummary();
-    }
+    },
   },
   filters: {
-    numberFilter: function(number){
+    numberFilter: function (number) {
       return number.toFixed(2);
-    }
-  }
-
+    },
+  },
 };
 </script>
 
 <style lang="css" scoped>
-  #stocks-list {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-  }
+#stocks-list {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
 </style>
