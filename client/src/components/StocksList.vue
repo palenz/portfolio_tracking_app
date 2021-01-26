@@ -22,6 +22,7 @@
 
     <div v-if='showTransactions'id="transaction-history">
       <h3>Transaction History</h3>
+      <h4>Investment Value: ${{ investedValue | numberFilter }}</h4>
       <table class="table">
         <thead class="table-header">
           <tr>
@@ -136,6 +137,14 @@ export default {
       let total = 0;
       for (let share of this.sharesSummary) {
         total += share.latestPrice * share.shares;
+      }
+      return total;
+    },
+
+    investedValue: function () {
+      let total = 0;
+      for (let share of this.portfolio) {
+        total += share.valueAtPurchase * share.shares;
       }
       return total;
     },
