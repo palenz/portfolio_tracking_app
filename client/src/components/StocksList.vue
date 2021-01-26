@@ -28,7 +28,7 @@
       <h3>Portfolio Summary</h3>
       <ul>
         <li v-for='share in sharesSummary'>
-          <p>{{share.symbol}}: {{share.shares}} shares </p>
+          <p>{{share.symbol}}: {{share.shares}}: {{share.price}}</p>
         </li>
       </ul>
     </div>

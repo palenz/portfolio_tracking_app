@@ -1,15 +1,7 @@
 <template lang="html">
 <div>
   
-  <form v-on:submit.prevent='handleStockSubmit'>
-    <label for='selected-stock'>Enter New Ticker:</label>
-    <input type='text' id="selected-stock" v-model='selectedStock'/>
-    <input type='submit' value='Enter Ticker'/>
-  </form>
-
-  <p v-if='latestStockPrice'>The latest price for {{selectedStock}} is {{latestStockPrice}}
-      <button v-on:click=getPrices>Save the last 100 prices</button>
-  </p>
+    <p>The selected company is {{selectedStock}}</p>
 
 
 
@@ -17,6 +9,7 @@
 </template>
 
 <script>
+
 import { eventBus } from '../main.js';
 
 export default {
@@ -46,6 +39,12 @@ export default {
         }
         
         
+    },
+
+    mounted(){
+        eventBus.$on('selected-stock', (selectedStock) => {
+            this.selectedStock = selectedStock
+        })
     }
 
 };

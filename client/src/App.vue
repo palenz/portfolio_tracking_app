@@ -37,17 +37,17 @@ export default {
     "chart-item": ChartItem,
     "stock-item": StockItem,
     "portfolio-form": PortfolioForm
+
   },
   data(){
     return{
-      portfolioLimitedPerformance: [],
+      stockLimitedPerformance: [],
       portfolio: [],
       selectedStock: null
     }
   },
 
   methods: {
-  
     fetchStockData: function(ticker){
       const url = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${ticker}&outputsize=compact&apikey=${keys.key1}`
       fetch(url)
@@ -60,7 +60,7 @@ export default {
           performanceArray.push(performance)
         }
         var stock = {ticker: ticker, performance: performanceArray}
-        this.portfolioLimitedPerformance.push(stock)
+        this.stockLimitedPerformance = stock
       })
     },
 
@@ -70,12 +70,21 @@ export default {
     }
   },
 
+  watch:{
+    selectedStock(val){
+      this.fetchStockData(val)
+    }
+  },
+
   mounted() {
-    this.fetchStockData('AAPL');
+    
     this.getPortfolio();
-    eventBus.$on('added-share', share => {
-      this.portfolio.push(share);
-    });
+  
+    eventBus.$on('selected-stock', (selectedStock) => {
+    this.selectedStock = selectedStock
+    
+    })
+
   }
 
 };
