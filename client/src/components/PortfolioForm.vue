@@ -1,29 +1,17 @@
 <template lang="html">
-    <form id="portfolio-form" v-on:submit.prevent="handleSubmit">
-        <h2>Add a share to your portfolio</h2>
-        <div class="formWrap">
-            <label for="ticker">Ticker:</label>
-            <select name="ticker" id="ticker-select" v-model="ticker">
-                <option value="NFLX">NFLX</option>
-                <option value="FB">FB</option>
-                <option value="LNKD">LNKD</option>
-                <option value="MCD">MCD</option>
-                <option value="TSLA">TSLA</option>
-            </select>
-        </div>
-        <div class="formWrap">
-            <label for="sharesNumber">Shares Number:</label>
-            <input type="number" name="sharesNumber" id="shares-number" v-model.number="sharesNumber">
-        </div>
-        <div class="formWrap">
-            <label for="buyShares">Buy Shares:</label>
-            <input type="submit" value="Buy Shares"  name="buyShares" id="buy-shares">
-        </div>
 
-    </form>
+<div>
+
+<h2>Search for a company</h2>
+        <form id="portfolio-form" v-on:submit.prevent="handleSubmit">
+            <label for="ticker">Enter company ticker:</label>
+            <input type='text' name="ticker" id="ticker-select" v-model='userInput'>
+            <input type="submit" value="Search"  name="buyShares" id="buy-shares">
+        </form>
+
+</div>
 
 </template>
-
 <script>
 
 import { eventBus } from '../main.js';
@@ -34,26 +22,33 @@ export default {
     name: 'PortfolioForm',
     data() {
         return {
-            ticker: '',
-            sharesNumber: null
+            selectedStock: null,
+            sharesNumber: null,
+            userInput: ''
         }
     },
     methods: {
-        handleSubmit() {
-            const todaysDate = datePurchased.getTodaysDate();
-            
-            const share = {
-                symbol: this.ticker,
-                shares: this.sharesNumber,
-                dateOfPurchase: todaysDate
-                
-            };
-
-            PortfolioService.postShares(share)
-                .then(res => {
-                    eventBus.$emit('added-share', res)
-                })
+        handleSubmit(){
+            this.selectedStock = this.userInput
+            this.userInput = ''
+            eventBus.$emit('selected-stock', this.selectedStock)
         }
+        
+        // handleSubmit() {
+        //     const todaysDate = datePurchased.getTodaysDate();
+            
+        //     const share = {
+        //         symbol: this.ticker,
+        //         shares: this.sharesNumber,
+        //         dateOfPurchase: todaysDate
+                
+        //     };
+
+        //     PortfolioService.postShares(share)
+        //         .then(res => {
+        //             eventBus.$emit('added-share', res)
+        //         })
+        // }
     }
 }
 </script>
