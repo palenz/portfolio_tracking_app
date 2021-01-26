@@ -1,18 +1,18 @@
 <template lang="html">
   <div id="stocks-list">
 
-
     <div id="portfolio-summary">
 
-      <button v-on:click='fetchMultiplePrices(ownedShareSymbols)'>Test Fetch</button>
+      <h3>Portfolio Summary</h3>
       <button v-on:click="getSharesPrices">update summary</button>
 
-      <h3>Portfolio Summary</h3>
-      <p>{{price}}</p>
       <button v-on:click="showTransactions=portfolio">Show All Transactions</button>
       <ul>
         <li v-for='share in sharesSummary'>
           <p>{{share.symbol}}: {{share.shares}} shares </p>
+          <div v-if='share.latestPrice' class="latest-price">
+            <p>The price at close is: ${{share.latestPrice}}</p>
+          </div>
           <button v-on:click="filterTransactions(share.symbol)">Show {{share.symbol}} Transactions</button>
         </li>
       </ul>
@@ -104,7 +104,8 @@ export default {
       // Push first object to sharesSummary to allow looping
       sharesSummary.push({
             symbol: this.portfolio[0].symbol,
-            shares: this.portfolio[0].shares
+            shares: this.portfolio[0].shares,
+            latestPrice: 0
           });
       this.ownedShareSymbols.push(this.portfolio[0].symbol);
       // loop through this.portfolio
@@ -122,7 +123,8 @@ export default {
         if (pushShare) {
           sharesSummary.push({
             symbol: this.portfolio[i].symbol,
-            shares: this.portfolio[i].shares
+            shares: this.portfolio[i].shares,
+            latestPrice: 0
           })
           this.ownedShareSymbols.push(this.portfolio[i].symbol);
         }
@@ -132,12 +134,14 @@ export default {
     getSharesPrices: function() {
       console.log('hello')
       for (let i = 0; i < this.sharesSummary.length; i++){
+        console.log(this.prices[i])
         this.sharesSummary[i].latestPrice = this.prices[i]
       }
     }
   },
-  created(){
+  mounted(){
     this.getSharesSummary();
+    // this.fetchMultiplePrices(this.ownedShareSymbols);
   },
   computed: {
     
