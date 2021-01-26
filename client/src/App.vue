@@ -10,8 +10,8 @@
     <main>
 
       <portfolio-form></portfolio-form>
-      <stocks-list :portfolio='portfolio'></stocks-list>  
       <chart-item :portfolioLimitedPerformance='portfolioLimitedPerformance'></chart-item>
+      <stocks-list v-if='portfolio.length > 0' :portfolio='portfolio'></stocks-list>  
       <stock-item></stock-item>
 
     </main>
@@ -37,12 +37,14 @@ export default {
     "stock-item": StockItem,
     "portfolio-form": PortfolioForm,
   },
-  data() {
-    return {
+
+  data(){
+    return{
       portfolioLimitedPerformance: [],
       portfolio: [],
       selectedStock: null,
-    };
+      portfolioOwner: ""
+    }
   },
 
   methods: {
@@ -63,10 +65,13 @@ export default {
     },
 
     getPortfolio() {
-      PortfolioService.getPortfolio().then(
-        (portfolio) => (this.portfolio = portfolio)
-      );
-    },
+      PortfolioService.getPortfolio()
+        .then(portfolio => {
+          const owner = portfolio.shift();
+          this.portfolioOwner = owner;
+          this.portfolio = portfolio;
+          });
+    }
   },
 
   mounted() {
