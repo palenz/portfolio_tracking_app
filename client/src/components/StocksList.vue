@@ -22,7 +22,7 @@
 
     <div v-if='showTransactions'id="transaction-history">
       <h3>Transaction History</h3>
-      <h4>Investment Value: ${{ investedValue | numberFilter }}</h4>
+      <h4 v-bind:class="{higher: isHigher, lower: !isHigher}">Investment Value: ${{ investedValue | numberFilter }}</h4>
       <table class="table">
         <thead class="table-header">
           <tr>
@@ -148,6 +148,10 @@ export default {
       }
       return total;
     },
+
+    isHigher: function () {
+      return this.investedValue > this.currentPortfolioValue;
+    }
   },
   watch: {
     portfolio: function (val) {
@@ -162,10 +166,19 @@ export default {
 };
 </script>
 
-<style lang="css" scoped>
+<style lang="css">
 #stocks-list {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+}
+
+.higher {
+  color: red;
+  text-decoration: underline;
+}
+
+.lower {
+  color: green;
 }
 </style>
