@@ -4,6 +4,7 @@
     <div id="portfolio-summary">
 
       <h3>Portfolio Summary</h3>
+      <h4 v-if="portfolioValue" >Total Portfolio Value: ${{portfolioValue}}</h4>
       <button v-on:click="getSharesPrices">update summary</button>
 
       <button v-on:click="showTransactions=portfolio">Show All Transactions</button>
@@ -139,9 +140,9 @@ export default {
       }
     }
   },
-  mounted(){
+  created(){
     this.getSharesSummary();
-    this.fetchMultiplePrices(this.ownedShareSymbols);
+    // this.fetchMultiplePrices(this.ownedShareSymbols);
   },
   computed: {
     portfolioValue: function(){
