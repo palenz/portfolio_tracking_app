@@ -130,7 +130,7 @@ export default {
   },
   created() {
     this.getSharesSummary();
-    // this.fetchMultiplePrices(this.ownedShareSymbols);
+    this.fetchMultiplePrices(this.ownedShareSymbols);
   },
   computed: {
     currentPortfolioValue: function () {
