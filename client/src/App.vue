@@ -12,9 +12,9 @@
       <portfolio-form></portfolio-form>
       <stocks-list v-if='portfolio.length > 0' :portfolio='portfolio'></stocks-list>  
       <chart-item></chart-item>
+      <stock-item></stock-item>
 
     </main>
-
 
   </div>
 
@@ -27,28 +27,45 @@ import PortfolioForm from "./components/PortfolioForm.vue";
 import PortfolioService from "./services/PortfolioService.js";
 import StocksList from "./components/StocksList.vue";
 import ChartItem from "./components/ChartItem.vue";
+import StockItem from "./components/StockItem.vue";
+import keys from '../.env/keys.js'
 
 export default {
   name: "app",
   components: {
     "stocks-list": StocksList,
     "chart-item": ChartItem,
+    "stock-item": StockItem,
     "portfolio-form": PortfolioForm
   },
-  data() {
-    return {
-      portfolio: [],
-      portfolioOwner: ""
-    };
-  },
-  mounted() {
-    this.getPortfolio();
 
-    eventBus.$on('added-share', share => {
-      this.portfolio.push(share);
-    })
+  data(){
+    return{
+      portfolioLimitedPerformance: [],
+      portfolio: [],
+      selectedStock: null,
+      portfolioOwner: ""
+    }
   },
+
   methods: {
+  
+    fetchStockData: function(ticker){
+      const url = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${ticker}&outputsize=compact&apikey=${keys.key1}`
+      fetch(url)
+      .then(res => res.json())
+      .then(data => {
+        let objOfDays = data["Time Series (Daily)"]
+        const performanceArray = []
+        for (let day in objOfDays){
+          var performance = { date: day, price: objOfDays[day]["4. close"] };
+          performanceArray.push(performance)
+        }
+        var stock = {ticker: ticker, performance: performanceArray}
+        this.portfolioLimitedPerformance.push(stock)
+      })
+    },
+
     getPortfolio() {
       PortfolioService.getPortfolio()
         .then(portfolio => {
@@ -57,9 +74,19 @@ export default {
           this.portfolio = portfolio;
           });
     }
+  },
+
+  mounted() {
+    this.fetchStockData('AAPL');
+    this.getPortfolio();
+    eventBus.$on('added-share', share => {
+      this.portfolio.push(share);
+    });
   }
 
 };
+
+
 </script>
 
 <style lang="css" scoped>

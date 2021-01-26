@@ -1,7 +1,7 @@
 .DS_Store
 node_modules
 /dist
-
+.env
 
 # local env files
 .env.local
@@ -26,3 +26,5 @@ pnpm-debug.log*
 src/keys.js
 
 package-lock.json
+
+
