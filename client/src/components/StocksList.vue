@@ -57,8 +57,7 @@ export default {
       showTransactions: null,
       prices: [],
       ownedShareSymbols: [],
-      sharesSummary: null,
-      portfolioValue: 0
+      sharesSummary: null
     }
   },
   props: ['portfolio'],
@@ -120,13 +119,7 @@ export default {
       };
       this.sharesSummary = sharesSummary;
     },
-    getPortfolioValue: function(){
-      let total = 0;
-      for (let share of this.sharesSummary){
-        total += (share.latestPrice * share.shares)
-      }
-      this.portfolioValue = total;
-    },
+    
     getSharesPrices: function() {
       console.log('hello')
       for (let i = 0; i < this.sharesSummary.length; i++){
@@ -136,12 +129,18 @@ export default {
       this.getPortfolioValue();
     }
   },
-  mounted(){
+  created(){
     this.getSharesSummary();
     this.fetchMultiplePrices(this.ownedShareSymbols);
   },
   computed: {
-    
+    portfolioValue: function(){
+      let total = 0;
+      for (let share of this.sharesSummary){
+        total += (share.latestPrice * share.shares)
+      }
+      return total;
+    },
   },
   filters: {
     numberFilter: function(number){
