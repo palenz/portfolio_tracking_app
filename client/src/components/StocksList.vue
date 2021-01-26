@@ -4,7 +4,7 @@
     <div id="portfolio-summary">
 
       <h3>Portfolio Summary</h3>
-      <h4 v-if="portfolioValue" >Total Portfolio Value: ${{portfolioValue}}</h4>
+      <h4 v-if="portfolioValue" >Total Portfolio Value: ${{portfolioValue | numberFilter}}</h4>
       <button v-on:click="getSharesPrices">update summary</button>
 
       <button v-on:click="showTransactions=portfolio">Show All Transactions</button>
@@ -12,8 +12,8 @@
         <li v-for='share in sharesSummary'>
           <p>{{share.symbol}}: {{share.shares}} shares </p>
           <div v-if='share.latestPrice' class="latest-price">
-            <p>The price at close is: ${{share.latestPrice}}</p>
-            <p>The value of your {{share.symbol}} holdings are: ${{share.latestPrice * share.shares}}</p>
+            <p>The price at close is: ${{share.latestPrice | numberFilter}}</p>
+            <p>The value of your {{share.symbol}} holdings are: ${{share.latestPrice * share.shares | numberFilter}}</p>
           </div>
           <button v-on:click="filterTransactions(share.symbol)">Show {{share.symbol}} Transactions</button>
         </li>
@@ -57,7 +57,8 @@ export default {
       showTransactions: null,
       prices: [],
       ownedShareSymbols: [],
-      sharesSummary: null
+      sharesSummary: null,
+      portfolioValue: 0
     }
   },
   props: ['portfolio'],
@@ -81,7 +82,7 @@ export default {
             const obj = item['Time Series (Daily)'];
             const arr = Object.values(obj);
             const latestEntry = arr[0];
-          this.prices.push(latestEntry['4. close'])
+          this.prices.push(parseFloat(latestEntry['4. close']))
           }
         })
     },
@@ -119,26 +120,28 @@ export default {
       };
       this.sharesSummary = sharesSummary;
     },
+    getPortfolioValue: function(){
+      let total = 0;
+      for (let share of this.sharesSummary){
+        total += (share.latestPrice * share.shares)
+      }
+      this.portfolioValue = total;
+    },
     getSharesPrices: function() {
       console.log('hello')
       for (let i = 0; i < this.sharesSummary.length; i++){
         console.log(this.prices[i])
         this.sharesSummary[i].latestPrice = this.prices[i]
       }
+      this.getPortfolioValue();
     }
   },
-  created(){
+  mounted(){
     this.getSharesSummary();
-    // this.fetchMultiplePrices(this.ownedShareSymbols);
+    this.fetchMultiplePrices(this.ownedShareSymbols);
   },
   computed: {
-    portfolioValue: function(){
-      let total = 0;
-      for (let share of this.sharesSummary){
-        total += (share.latestPrice * share.shares)
-      }
-      return total;
-    }
+    
   },
   filters: {
     numberFilter: function(number){
