@@ -12,6 +12,7 @@
           <p>{{share.symbol}}: {{share.shares}} shares </p>
           <div v-if='share.latestPrice' class="latest-price">
             <p>The price at close is: ${{share.latestPrice}}</p>
+            <p>The value of your {{share.symbol}} holdings are: ${{share.latestPrice * share.shares}}</p>
           </div>
           <button v-on:click="filterTransactions(share.symbol)">Show {{share.symbol}} Transactions</button>
         </li>
@@ -141,7 +142,7 @@ export default {
   },
   mounted(){
     this.getSharesSummary();
-    // this.fetchMultiplePrices(this.ownedShareSymbols);
+    this.fetchMultiplePrices(this.ownedShareSymbols);
   },
   computed: {
     
