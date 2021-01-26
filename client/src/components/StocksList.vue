@@ -4,7 +4,7 @@
     <div id="portfolio-summary">
 
       <h3>Portfolio Summary</h3>
-      <h4 v-if="portfolioValue" >Total Portfolio Value: ${{portfolioValue | numberFilter}}</h4>
+      <h4 v-if="portfolioValue" >Total Portfolio Value: ${{portfolioValue}}</h4>
       <button v-on:click="getSharesPrices">update summary</button>
 
       <button v-on:click="showTransactions=portfolio">Show All Transactions</button>
@@ -12,8 +12,8 @@
         <li v-for='share in sharesSummary'>
           <p>{{share.symbol}}: {{share.shares}} shares </p>
           <div v-if='share.latestPrice' class="latest-price">
-            <p>The price at close is: ${{share.latestPrice | numberFilter}}</p>
-            <p>The value of your {{share.symbol}} holdings are: ${{share.latestPrice * share.shares | numberFilter}}</p>
+            <p>The price at close is: ${{share.latestPrice}}</p>
+            <p>The value of your {{share.symbol}} holdings are: ${{share.latestPrice * share.shares}}</p>
           </div>
           <button v-on:click="filterTransactions(share.symbol)">Show {{share.symbol}} Transactions</button>
         </li>
@@ -55,7 +55,6 @@ export default {
   data() {
     return {
       showTransactions: null,
-      price: null,
       prices: [],
       ownedShareSymbols: [],
       sharesSummary: null
@@ -66,18 +65,6 @@ export default {
     filterTransactions: function(tickerSymbol) {
       this.showTransactions = this.portfolio.filter(share => {
         return share.symbol === tickerSymbol;
-      })
-    },
-    fetchLatestPrice: function(ticker){
-      const url = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${ticker}&outputsize=compact&apikey=${keys.key2}`
-
-      fetch(url)
-      .then(res => res.json())
-      .then(data => {
-        const obj = data['Time Series (Daily)'];
-        const arr = Object.values(obj);
-        const latestEntry = arr[0];
-      this.price = latestEntry['4. close']
       })
     },
     fetchMultiplePrices: function(symbolList){
