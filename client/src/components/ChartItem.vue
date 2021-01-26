@@ -28,37 +28,9 @@ export default {
 
   data() {
     return {
-      shareChartData: [
-        // ["date", "KO"],
-        // ["2021-01-10", 20],
-        // 2021-01-10: 20
-        // date: 2021-01-10, price: 20
-        // ["2021-01-11", 18],
-        // ["2021-01-12", 24],
-        // ["2021-01-13", 26],
-        // ["2021-01-14", 22],
-      ],
+      shareChartData: [],
 
 
-      // portfolioLimitedPerformance: [
-      //   {
-      //     performance: [
-      //       {
-      //         date: "2021-01-25",
-      //         price: 142.9200
-      //       },
-      //       {
-      //         date: "2021-01-26",
-      //         price: 143.9200
-      //       },
-      //       {
-      //         date: "2021-01-27",
-      //         price: 122.9200
-      //       },
-      //     ],
-      //     ticker: "AAPL"
-      //   }
-      // ]
 
       chartOptions: {
         chart: {
@@ -89,24 +61,10 @@ export default {
       console.log(prices)
 
 
-      // companyData = this.portfolioLimitedPerformance[0]
-      // console.log(this.portfolioLimitedPerformance[0]);
-      // const headers = ["date"];
-      // headers.push(this.portfolioLimitedPerformance[0]["ticker"]);
-
-      // const chartData = Object.entries(
-      //   this.portfolioLimitedPerformance[0]["performance"]
-      // );
-      // chartData.unshift(headers);
-
-      // this.shareChartData = chartData;
-
-      // console.log(chartData);
     },
   },
 
   mounted() {
-    // this.populateChartData();
   },
 };
 </script>
