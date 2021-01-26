@@ -4,7 +4,7 @@
     <div id="portfolio-summary">
 
       <h3>Portfolio Summary</h3>
-      <h4 v-if="portfolioValue" >Total Portfolio Value: ${{portfolioValue}}</h4>
+      <h4 v-if="portfolioValue" >Total Portfolio Value: ${{portfolioValue | numberFilter}}</h4>
       <button v-on:click="getSharesPrices">update summary</button>
 
       <button v-on:click="showTransactions=portfolio">Show All Transactions</button>
@@ -12,8 +12,8 @@
         <li v-for='share in sharesSummary'>
           <p>{{share.symbol}}: {{share.shares}} shares </p>
           <div v-if='share.latestPrice' class="latest-price">
-            <p>The price at close is: ${{share.latestPrice}}</p>
-            <p>The value of your {{share.symbol}} holdings are: ${{share.latestPrice * share.shares}}</p>
+            <p>The price at close is: ${{share.latestPrice | numberFilter}}</p>
+            <p>The value of your {{share.symbol}} holdings are: ${{share.latestPrice * share.shares | numberFilter}}</p>
           </div>
           <button v-on:click="filterTransactions(share.symbol)">Show {{share.symbol}} Transactions</button>
         </li>
@@ -151,6 +151,11 @@ export default {
         total += (share.latestPrice * share.shares)
       }
       return total;
+    }
+  },
+  filters: {
+    numberFilter: function(number){
+      return number.toFixed(2);
     }
   }
 
