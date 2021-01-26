@@ -80,7 +80,6 @@ export default {
       })
     },
     fetchMultiplePrices: function(symbolList){
-      // const symbolList = ["KO", "TWTR", "NFLX"]
       const promises = symbolList.map(ticker => {
         return fetch(
           `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${ticker}&outputsize=compact&apikey=${keys.key2}`
@@ -145,7 +144,13 @@ export default {
     this.fetchMultiplePrices(this.ownedShareSymbols);
   },
   computed: {
-    
+    portfolioValue: function(){
+      let total = 0;
+      for (let share of this.sharesSummary){
+        total += (share.latestPrice * share.shares)
+      }
+      return total;
+    }
   }
 
 };
