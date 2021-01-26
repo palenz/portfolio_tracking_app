@@ -126,12 +126,11 @@ export default {
         console.log(this.prices[i])
         this.sharesSummary[i].latestPrice = this.prices[i]
       }
-      this.getPortfolioValue();
     }
   },
   created(){
     this.getSharesSummary();
-    // this.fetchMultiplePrices(this.ownedShareSymbols);
+    this.fetchMultiplePrices(this.ownedShareSymbols);
   },
   computed: {
     portfolioValue: function(){
