@@ -3,7 +3,7 @@
   <div id="app">
 
     <header></header>
-      <h1>Juan's Mighty Share Portfolio</h1>
+      <h1>The Muffin Group's Cash Stash</h1>
       <div>Portfolio Value Goes Here</div>
     </header>
 
@@ -21,14 +21,13 @@
 </template>
 
 <script>
-
-import { eventBus } from './main';
+import { eventBus } from "./main";
 import PortfolioForm from "./components/PortfolioForm.vue";
 import PortfolioService from "./services/PortfolioService.js";
 import StocksList from "./components/StocksList.vue";
 import ChartItem from "./components/ChartItem.vue";
 import StockItem from "./components/StockItem.vue";
-import keys from '../.env/keys.js'
+import keys from "../.env/keys.js";
 
 export default {
   name: "app",
@@ -36,53 +35,49 @@ export default {
     "stocks-list": StocksList,
     "chart-item": ChartItem,
     "stock-item": StockItem,
-    "portfolio-form": PortfolioForm
+    "portfolio-form": PortfolioForm,
   },
-  data(){
-    return{
+  data() {
+    return {
       portfolioLimitedPerformance: [],
       portfolio: [],
-      selectedStock: null
-    }
+      selectedStock: null,
+    };
   },
 
   methods: {
-  
-    fetchStockData: function(ticker){
-      const url = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${ticker}&outputsize=compact&apikey=${keys.key1}`
+    fetchStockData: function (ticker) {
+      const url = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${ticker}&outputsize=compact&apikey=${keys.key1}`;
       fetch(url)
-      .then(res => res.json())
-      .then(data => {
-        let objOfDays = data["Time Series (Daily)"]
-        const performanceArray = []
-        for (let day in objOfDays){
-          var performance = { date: day, price: objOfDays[day]["4. close"] };
-          performanceArray.push(performance)
-        }
-        var stock = {ticker: ticker, performance: performanceArray}
-        this.portfolioLimitedPerformance.push(stock)
-      })
+        .then((res) => res.json())
+        .then((data) => {
+          let objOfDays = data["Time Series (Daily)"];
+          const performanceArray = [];
+          for (let day in objOfDays) {
+            var performance = { date: day, price: parseFloat(objOfDays[day]["4. close"]) };
+            performanceArray.push(performance);
+          }
+          var stock = { ticker: ticker, performance: performanceArray };
+          this.portfolioLimitedPerformance.push(stock);
+        });
     },
 
     getPortfolio() {
-      PortfolioService.getPortfolio()
-        .then(portfolio => this.portfolio = portfolio);
-    }
+      PortfolioService.getPortfolio().then(
+        (portfolio) => (this.portfolio = portfolio)
+      );
+    },
   },
 
   mounted() {
-    this.fetchStockData('AAPL');
+    this.fetchStockData("CRM");
     this.getPortfolio();
-    eventBus.$on('added-share', share => {
+    eventBus.$on("added-share", (share) => {
       this.portfolio.push(share);
     });
-  }
-
+  },
 };
-
-
 </script>
 
 <style lang="css" scoped>
-
 </style>
