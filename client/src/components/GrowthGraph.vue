@@ -6,6 +6,8 @@
 </template>
 
 <script>
+
+
 export default {
     name: "growth-graph",
     
@@ -28,6 +30,9 @@ export default {
             }
             this.investedTotalShareValue = parseFloat(totalValue.toFixed(2));
         }
+    },
+    mounted(){
+        this.getTotalInvestedValue(this.shareSummary.symbol);
     }
 }
 </script>

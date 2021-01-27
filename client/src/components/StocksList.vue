@@ -14,7 +14,7 @@
           <div v-if='share.latestPrice' class="latest-price">
             <p>The price at close is: ${{share.latestPrice | numberFilter}}</p>
             <p>The value of your {{share.symbol}} holdings are: ${{share.latestPrice * share.shares | numberFilter}}</p>
-            <growth-graph :shareSummary="share" :portfolio="portfolio"></growth-graph>
+            <growth-graph v-if="sharesSummary" :shareSummary="share" :portfolio="portfolio"></growth-graph>
           </div>
           <button v-on:click="filterTransactions(share.symbol)">Show {{share.symbol}} Transactions</button>
         </li>
