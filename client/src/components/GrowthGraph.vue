@@ -1,12 +1,13 @@
 <template>
   <div id="growth-graph">
-      GRAPH
+      <h4>Your investment has changed by x%</h4>
       <div v-if="shareSummary">
         <GChart
             type="ColumnChart"
             :data="chartData"
             :options="chartOptions"
         />
+        <button v-on:click="populateChartData">Update Chart</button>
       </div>
   </div>
 </template>
@@ -25,7 +26,7 @@ export default {
             investedTotalShareValue: null,
             chartData: [
                 ["Test", "Axis", "Axis2"],
-                ["Yes", 10, 30]
+                ["Yes", 10.00, 30.00]
             ],
             chartOptions: {
                 chart: {
@@ -46,7 +47,15 @@ export default {
             }
             this.investedTotalShareValue = parseFloat(totalValue.toFixed(2));
             console.log('mounted')
-        }
+        },
+        populateChartData: function(){
+            const chartData = [];
+            const headers = ["Comapny", "Invested ($)", "Current Investment Value ($)"]
+            const values = [this.shareSummary.symbol, this. investedTotalShareValue, this.currentTotalShareValue]
+            chartData.push(headers);
+            chartData.push(values);
+            this.chartData = chartData
+        }   
     },
     mounted(){
         this.getTotalInvestedValue(this.shareSummary.symbol);
