@@ -15,7 +15,7 @@
       <portfolio-form></portfolio-form>
       <chart-item :stockLimitedPerformance='stockLimitedPerformance'></chart-item>
       <stocks-list v-if='portfolio.length > 0' :portfolio='portfolio'></stocks-list>  
-      <stock-item></stock-item>
+      <stock-item :stockLimitedPerformance='stockLimitedPerformance'></stock-item>
 
     </main>
 
