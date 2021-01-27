@@ -9,8 +9,8 @@
         <input type="checkbox">
         <span class="slider round" @click="darkThemeSwitch"></span>
       </label>
-      <h1 class="h1">Clueless Trading</h1>
-      <h3 class="h2">"It's basically gambling"</h3>
+      <h1 class="h1">Lorem Ipsum - "consectetur adipiscing"</h1>
+      <!-- <h3 class="h2">"It's basically gambling"</h3> -->
 
     </header>
 
@@ -144,6 +144,8 @@ export default {
 .switch {
   position: relative;
   display: inline-block;
+  top: 0;
+  right: 0;
   width: 60px;
   height: 34px;
 }
