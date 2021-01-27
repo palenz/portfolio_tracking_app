@@ -143,7 +143,6 @@ export default {
       }
       return total;
     },
-
     investedValue: function () {
       let total = 0;
       for (let share of this.portfolio) {
@@ -151,9 +150,12 @@ export default {
       }
       return total;
     },
-
     isHigher: function () {
       return this.investedValue > this.currentPortfolioValue;
+    },
+    portfolioGrowth: function () {
+      let growth = (this.currentPortfolioValue - this.investedValue) / this.investedValue * 100;
+      return parseFloat(growth.toFixed(2));
     }
   },
   watch: {
