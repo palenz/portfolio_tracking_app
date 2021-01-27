@@ -23,10 +23,7 @@ export default {
         return{
             currentTotalShareValue: this.shareSummary.latestPrice * this.shareSummary.shares,
             investedTotalShareValue: null,
-            chartData: [
-                ["Test", "Axis", "Axis2"],
-                ["Yes", 10.00, 30.00]
-            ],
+            chartData: [],
             chartOptions: {
                 title: 'Investment Performance',
                 colors: ["#2196F3", "#d90429"],
@@ -55,8 +52,9 @@ export default {
         },
         populateChartData: function(){
             const chartData = [];
+            let currentTotal = parseFloat(this.currentTotalShareValue.toFixed(2))
             const headers = ["Comapny", "Invested ($)", "Current Investment Value ($)"]
-            const values = [this.shareSummary.symbol, this. investedTotalShareValue, this.currentTotalShareValue]
+            const values = [this.shareSummary.symbol, this. investedTotalShareValue, currentTotal]
             chartData.push(headers);
             chartData.push(values);
             this.chartData = chartData

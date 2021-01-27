@@ -5,7 +5,7 @@
 
       <h3>Portfolio Summary</h3>
       <h4 v-if="currentPortfolioValue" >Total Portfolio Value: ${{currentPortfolioValue | numberFilter}}</h4>
-      <h4 v-if="currentPortfolioValue" >Your Total Portfolio Value has changed by {{portfolioGrowth}}%</h4>
+      <h4 v-if="currentPortfolioValue" >Your total portfolio value has changed by {{portfolioGrowth}}%</h4>
       <button v-on:click="getSharesPrices">Show Summary</button>
 
       <button v-on:click="showTransactions=portfolio">Show All Transactions</button>
@@ -156,7 +156,7 @@ export default {
     }
   },
   watch: {
-    portfolio: function (val) {
+    portfolio: function () {
       this.getSharesSummary();
     },
   },
