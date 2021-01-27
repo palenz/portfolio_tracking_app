@@ -53,7 +53,7 @@ export default {
   name: "stocks-list",
   data() {
     return {
-      showTransactions: null,
+      showTransactions: this.portfolio,
       prices: [],
       ownedShareSymbols: [],
       sharesSummary: null,
@@ -124,7 +124,7 @@ export default {
         console.log(this.prices[i]);
         this.sharesSummary[i].latestPrice = this.prices[i];
       }
-    },
+    }
   },
   created() {
     this.getSharesSummary();
