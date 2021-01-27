@@ -60,7 +60,7 @@ export default {
         let objOfDays = data["Time Series (Daily)"]
         const performanceArray = []
         for (let day in objOfDays){
-          var performance = { date: day, price: objOfDays[day]["4. close"] };
+          var performance = { date: day, price: parseFloat(objOfDays[day]["4. close"])};
           performanceArray.push(performance)
         }
         var stock = {ticker: ticker, performance: performanceArray}
