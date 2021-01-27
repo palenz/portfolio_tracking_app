@@ -14,6 +14,7 @@
           <div v-if='share.latestPrice' class="latest-price">
             <p>The price at close is: ${{share.latestPrice | numberFilter}}</p>
             <p>The value of your {{share.symbol}} holdings are: ${{share.latestPrice * share.shares | numberFilter}}</p>
+            <growth-graph :shareSummary="share" :portfolio="portfolio"></growth-graph>
           </div>
           <button v-on:click="filterTransactions(share.symbol)">Show {{share.symbol}} Transactions</button>
         </li>
@@ -48,9 +49,13 @@
 
 <script>
 import keys from "../../.env/keys.js";
+import GrowthGraph from "./GrowthGraph.vue"
 
 export default {
   name: "stocks-list",
+  components: {
+    "growth-graph": GrowthGraph
+  },
   data() {
     return {
       showTransactions: this.portfolio,
