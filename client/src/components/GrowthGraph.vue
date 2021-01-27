@@ -28,9 +28,10 @@ export default {
                 ["Yes", 10.00, 30.00]
             ],
             chartOptions: {
-                chart: {
-                    Title: "Investment Performance",
-                },
+                title: 'Investment Performance',
+                colors: ["blue", "red"],
+                vAxis: {format: 'currency'},
+                legend: {position: 'top'}
             },
         }
     },
