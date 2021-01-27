@@ -35,6 +35,12 @@ export default {
           Title: "Share Performance",
           subtitle: "Last Quarter Daily Closing Price",
         },
+        vAxis: {
+          title: "US Dollars ($)"
+          },
+        hAxis: {
+          title: 'date',
+        },
       },
     };
   },

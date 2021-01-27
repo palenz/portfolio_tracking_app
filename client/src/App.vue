@@ -53,7 +53,7 @@ export default {
   methods: {
 
     fetchStockData: function(ticker){
-      const url = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${ticker}&outputsize=compact&apikey=${keys.key1}`
+      const url = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${ticker}&outputsize=compact&apikey=${keys.key2}`
       fetch(url)
       .then(res => res.json())
       .then(data => {
