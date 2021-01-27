@@ -26,7 +26,7 @@ export default {
             for (let share of filterPortfolio){
                 totalValue += share.valueAtPurchase * share.shares;
             }
-            this.investedTotalShareValue = totalValue;
+            this.investedTotalShareValue = parseFloat(totalValue.toFixed(2));
         }
     }
 }
