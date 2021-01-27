@@ -43,14 +43,18 @@ export default {
           textStyle: {fontSize: 12}
           },
         hAxis: {
-          showTextEvery: 5,
-          slantedText: true,
-          textStyle: {fontSize: 8},
-          ticks: [0, 10,  20, 30, 40, 50, 60, 70, 80, 90]
+          title: "Last Quarter Daily Closing Price",
+          showTextEvery: 10,
+          slantedText: false,
+          textStyle: {fontSize: 10},
         },
         
         legend: {
           position: 'top'
+        },
+
+        chartArea: {
+          width: '80%',
         },
       },
     };
