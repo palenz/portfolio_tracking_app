@@ -52,7 +52,6 @@ export default {
                 totalValue += share.valueAtPurchase * share.shares;
             }
             this.investedTotalShareValue = parseFloat(totalValue.toFixed(2));
-            console.log('mounted')
         },
         populateChartData: function(){
             const chartData = [];

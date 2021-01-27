@@ -163,7 +163,7 @@ export default {
   },
   filters: {
     numberFilter: function (number) {
-      return number.toFixed(2);
+      return new Intl.NumberFormat().format(number);
     },
   },
 };
