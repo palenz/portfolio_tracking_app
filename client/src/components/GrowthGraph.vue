@@ -1,6 +1,7 @@
 <template>
   <div id="growth-graph">
       GRAPH
+      <button v-on:click="getTotalInvestedValue(shareSummary.symbol)">Get Values</button>
   </div>
 </template>
 
@@ -14,7 +15,20 @@ export default {
             investedTotalShareValue: null
         }
     },
-    props: ["shareSummary", "portfolio"]
+    props: ["shareSummary", "portfolio"],
+    methods: {
+        getTotalInvestedValue: function(symbol){
+            const filterPortfolio = this.portfolio.filter((share) => {
+                return share.symbol === symbol;
+            })
+            console.log(filterPortfolio)
+            let totalValue = 0;
+            for (let share of filterPortfolio){
+                totalValue += share.valueAtPurchase * share.shares;
+            }
+            this.investedTotalShareValue = totalValue;
+        }
+    }
 }
 </script>
 
