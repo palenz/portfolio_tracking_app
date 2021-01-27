@@ -2,15 +2,17 @@
 
   <div>  
   
-      <h2>Share Performance Chart</h2>
+    <h2>Share Performance Chart</h2>
 
     <div v-if='stockData'>
-      <p></p>
-      <GChart
-        type="LineChart"
-        :data="shareChartData"
-        :options="chartOptions"
-      />
+      <table class="line-table">
+        <p></p>
+          <GChart
+          type="LineChart"
+          :data="shareChartData"
+         :options="chartOptions"
+        />
+      </table>
     </div>
   </div>
 
@@ -68,4 +70,15 @@ export default {
 </script>
 
 <style lang="css" scoped>
+
+.line-table {
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9em;
+    min-width: 1000px;
+    border-radius: 25px 25px 0 0;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+  }
+
 </style>

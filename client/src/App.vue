@@ -2,12 +2,16 @@
   
   <div id="app">
 
+    <link rel="preconnect" href="https://fonts.gstatic.com"> 
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500&display=swap" rel="stylesheet">
     <header>
       <label class="switch" @click="darkThemeSwitch">
         <input type="checkbox">
         <span class="slider round" @click="darkThemeSwitch"></span>
       </label>
-      <h1>The Muffin Group's Cash Stash</h1>
+      <h1 class="h1">Clueless Trading</h1>
+      <h3 class="h2">"It's basically gambling"</h3>
+
     </header>
 
     <main>
@@ -114,7 +118,6 @@ export default {
     eventBus.$on('selected-stock', (selectedStock) => {
     this.selectedStock = selectedStock
     })
-
   }
 
 };
@@ -142,7 +145,7 @@ export default {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #ccc;
+  background-color: rgb(236, 6, 6);
   -webkit-transition: .4s;
   transition: .4s;
 }
@@ -154,7 +157,7 @@ export default {
   width: 26px;
   left: 4px;
   bottom: 4px;
-  background-color: white;
+  background-color: rgb(255, 255, 255);
   -webkit-transition: .4s;
   transition: .4s;
 }
@@ -181,4 +184,13 @@ input:checked + .slider:before {
   border-radius: 50%;
 }
 
+.h1 {
+  font-size: 3.5em;
+  font-family: Cinzel, serif;
+}
+
+.h2 {
+  font-size: 1.5em;
+  font-family: Cinzel, serif;
+}
 </style>

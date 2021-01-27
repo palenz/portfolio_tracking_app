@@ -1,22 +1,25 @@
 <template lang="html">
 
-<div>
+<div class="search-company">
 
-<h2>Search for a company</h2>
+        <h2>Search for a company</h2>
         <form id="portfolio-form" v-on:submit.prevent="handleSubmit">
-            <label for="ticker">Enter company ticker:</label>
+            <label for="ticker" class="header">Enter company ticker:</label>
             <input type='text' name="ticker" id="ticker-select" v-model='userInput'>
             <input type="submit" value="Search"  name="buyShares" id="buy-shares">
         </form>
+        <p>The selected company is {{selectedStock}}</p>
 
 </div>
 
 </template>
+
 <script>
 
 import { eventBus } from '../main.js';
 import PortfolioService from '../services/PortfolioService.js';
 import datePurchased from '../models/datePurchased.js';
+import StockItem from '../components/StockItem.vue';
 
 export default {
     name: 'PortfolioForm',

@@ -1,11 +1,9 @@
 <template lang="html">
-<div>
-  
+<!-- <div>
+
     <p>The selected company is {{selectedStock}}</p>
 
-
-
-</div>
+</div> -->
 </template>
 
 <script>

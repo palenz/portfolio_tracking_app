@@ -3,21 +3,45 @@
 
     <div id="portfolio-summary">
 
-      <h3>Portfolio Summary</h3>
-      <h4 v-if="portfolioValue" >Total Portfolio Value: ${{portfolioValue | numberFilter}}</h4>
-      <button v-on:click="getSharesPrices">update summary</button>
+      <h3 class="h3">Portfolio Summary</h3>
+        <h4 v-if="portfolioValue" >Total Portfolio Value: ${{portfolioValue | numberFilter}}</h4>
+        <button v-on:click="getSharesPrices">update summary</button>
 
-      <button v-on:click="showTransactions=portfolio">Show All Transactions</button>
-      <ul>
-        <li v-for='share in sharesSummary'>
-          <p>{{share.symbol}}: {{share.shares}} shares </p>
-          <div v-if='share.latestPrice' class="latest-price">
-            <p>The price at close is: ${{share.latestPrice | numberFilter}}</p>
-            <p>The value of your {{share.symbol}} holdings are: ${{share.latestPrice * share.shares | numberFilter}}</p>
-          </div>
-          <button v-on:click="filterTransactions(share.symbol)">Show {{share.symbol}} Transactions</button>
-        </li>
-      </ul>
+        <button v-on:click="showTransactions=portfolio">Show All Transactions</button>
+        <table class="portfolio-table">
+          <thead class="portfolio-table-header">
+            <tr>
+              <th>Stock Ticker</th>
+              <th>Number of Shares</th>
+              <th>More Information</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for='share in sharesSummary' class="portfolio-table-row">
+              <td>{{share.symbol}}</td> <!-- : {{share.shares}} shares -->
+              <td>{{share.shares}}</td>
+              <div v-if='share.latestPrice' class="latest-price">
+                <p>The price at close is: ${{share.latestPrice | numberFilter}}</p>
+                <p>The value of your {{share.symbol}} holdings are: ${{share.latestPrice * share.shares | numberFilter}}</p>
+              </div>
+              <td></td>
+              <td>
+                <button v-on:click="filterTransactions(share.symbol)">Show {{share.symbol}} Transactions</button>
+              </td>
+            </tr>
+          </tbody>
+            <!-- <ul>
+             <li v-for='share in sharesSummary'>
+               <p>{{share.symbol}}: {{share.shares}} shares </p>
+               <div v-if='share.latestPrice' class="latest-price">
+                  <p>The price at close is: ${{share.latestPrice | numberFilter}}</p>
+                  <p>The value of your {{share.symbol}} holdings are: ${{share.latestPrice * share.shares | numberFilter}}</p>
+                </div>
+                <button v-on:click="filterTransactions(share.symbol)">Show {{share.symbol}} Transactions</button>
+              </li>
+             </ul> -->
+        </table>
     </div>
 
     <div v-if='showTransactions'id="transaction-history">
@@ -166,6 +190,10 @@ export default {
     justify-content: space-between;
   }
 
+  .portfolio-summary {
+    background-color: #009879;
+  }
+
   .table {
     border-collapse: collapse;
     margin: 25px 0;
@@ -200,7 +228,15 @@ export default {
     border-bottom: 2px solid #009879;
   }
 
-  .port-table {
+  .portfolio-summary {
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9em;
+    min-width: 400px;
+    border-radius: 5px 5px 50px 50px;
+  }
+
+  .portfolio-table {
     border-collapse: collapse;
     margin: 25px 0;
     font-size: 0.9em;
@@ -210,34 +246,34 @@ export default {
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
   }
 
-  .port-table thead tr {
-    background-color: #009879;
-    color: #ffffff;
-    text-align: left;
-    font-weight: bold;
-  }
-  .port-table thead tr {
+  .portfolio-table thead tr {
     background-color: #009879;
     color: #ffffff;
     text-align: left;
     font-weight: bold;
   }
 
-  .port-table th,
-  .port-table td {
+  .portfolio-table th,
+  .portfolio-table td {
     padding: 12px 15px;
   }
 
-  .port-table tbody tr {
+  .portfolio-table tbody tr {
     border-bottom: 1px solid #dddddd;
   }
 
-  .port-table tbody tr:nth-of-type(even) {
+  .portfolio-table tbody tr:nth-of-type(even) {
     background-color: #f3f3f3;
   }
 
-  .port-table tbody tr:last-of-type {
+  .portfolio-table tbody tr:last-of-type {
     border-bottom: 2px solid #009879;
   }
+
+  .h3 {
+    font-size: 1.25em;
+  }
+
+
 
 </style>
