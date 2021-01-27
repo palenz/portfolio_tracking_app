@@ -1,13 +1,12 @@
 <template>
   <div id="growth-graph">
-      <h4>Your investment has changed by x%</h4>
+      <h4>Your investment has changed by {{investmentGrowth}}%</h4>
       <div v-if="shareSummary">
         <GChart
             type="ColumnChart"
             :data="chartData"
             :options="chartOptions"
         />
-        <button v-on:click="populateChartData">Update Chart</button>
       </div>
   </div>
 </template>
@@ -36,6 +35,12 @@ export default {
         }
     },
     props: ["shareSummary", "portfolio"],
+    computed: {
+        investmentGrowth: function() {
+            let growth = (this.currentTotalShareValue - this.investedTotalShareValue) / this.investedTotalShareValue * 100;
+            return parseFloat(growth.toFixed(2));
+        }
+    },
     methods: {
         getTotalInvestedValue: function(symbol){
             const filterPortfolio = this.portfolio.filter((share) => {
