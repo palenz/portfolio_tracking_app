@@ -1,15 +1,14 @@
 <template lang="html">
-<div>
+<div v-if='selectedStock'>
   
-    <p>The selected company is {{selectedStock}}</p>
 
     <form id="portfolio-form" v-on:submit='handleBuyStock'>
-        <h2>Add a share to your portfolio</h2>
+        <h2>Buy shares of {{selectedStock}}</h2>
         
             <label for="sharesNumber">Number of shares:</label>
             <input type="number" name="sharesNumber" id="shares-number" v-model.number="numberOfShares">
 
-            <label for="buyShares">Buy</label>
+            <label for="buyShares"></label>
             <input type="submit" value="Buy Shares"  name="buyShares" id="buy-shares">
 
     </form>
@@ -25,7 +24,7 @@ import datePurchased from '../models/datePurchased.js';
 export default {
     
     name: 'stock-item',
-    props: ['latestStockPrice', 'stockLimitedPerformance'],
+    props: ['stockLimitedPerformance'],
     
     data () {
         return {
