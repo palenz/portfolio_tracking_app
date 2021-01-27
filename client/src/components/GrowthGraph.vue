@@ -29,7 +29,7 @@ export default {
             ],
             chartOptions: {
                 title: 'Investment Performance',
-                colors: ["blue", "red"],
+                colors: ["#2196F3", "#d90429"],
                 vAxis: {format: 'currency'},
                 legend: {position: 'top'}
             },
