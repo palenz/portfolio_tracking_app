@@ -59,6 +59,7 @@ export default {
     },
     mounted(){
         this.getTotalInvestedValue(this.shareSummary.symbol);
+        this.populateChartData();
     }
 }
 </script>
