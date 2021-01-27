@@ -1,17 +1,17 @@
 <template lang="html">
 
-  <div v-if="portfolioLimitedPerformance">  
+  <div>  
   
       <h2>Share Performance Chart</h2>
 
-      <input type="button" value="Chart" v-on:click="populateChartData"/>
-
+    <div v-if='stockData'>
+      <p></p>
       <GChart
         type="LineChart"
         :data="shareChartData"
         :options="chartOptions"
       />
-
+    </div>
   </div>
 
 </template> 
@@ -28,10 +28,8 @@ export default {
 
   data() {
     return {
-      shareChartData: [],
-
-
-
+      shareChartData: null,
+      stockData: null,
       chartOptions: {
         chart: {
           Title: "Share Performance",
@@ -41,31 +39,31 @@ export default {
     };
   },
 
-  props: ["portfolioLimitedPerformance"],
+  props: ["stockLimitedPerformance"],
 
   methods: {
     populateChartData: function () {
       const headers = ["date"]
-      headers.push(this.portfolioLimitedPerformance[0]["ticker"])
+      headers.push(this.stockLimitedPerformance["ticker"])
 
       const prices = []
-      for (let share of this.portfolioLimitedPerformance[0]["performance"]) {
+      for (let share of this.stockLimitedPerformance["performance"]) {
         let number = Object.values(share)
         prices.push(number)
       }
-
       prices.unshift(headers)
-
       this.shareChartData = prices
-
-      console.log(prices)
-
 
     },
   },
 
-  mounted() {
+  watch:{
+    stockLimitedPerformance: function() {
+      this.stockData = this.stockLimitedPerformance;
+      this.populateChartData()
+    }
   },
+
 };
 </script>
 
