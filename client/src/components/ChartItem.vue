@@ -46,11 +46,14 @@ export default {
       const headers = ["date"]
       headers.push(this.stockLimitedPerformance["ticker"])
 
-      const prices = []
+      const reversedPrices = []
       for (let share of this.stockLimitedPerformance["performance"]) {
         let number = Object.values(share)
-        prices.push(number)
+        reversedPrices.push(number)
       }
+
+      const prices = reversedPrices.reverse();
+
       prices.unshift(headers)
       this.shareChartData = prices
 
