@@ -35,6 +35,8 @@ import StocksList from "./components/StocksList.vue";
 import ChartItem from "./components/ChartItem.vue";
 import StockItem from "./components/StockItem.vue";
 import keys from "../.env/keys.js";
+// import login from "../views/login.vue";
+// import secure from "../views/secure.vue";
 
 export default {
   name: "app",
@@ -50,7 +52,12 @@ export default {
       stockLimitedPerformance: [],
       portfolio: [],
       selectedStock: null,
-      portfolioOwner: ""
+      portfolioOwner: "",
+      authenticated: false,
+      mockAccount: {
+          username: "nraboy",
+          password: "password"
+        }
     }
   },
 
@@ -102,7 +109,12 @@ export default {
         this._removeDarkTheme()
     }
     },
-
+    setAuthenticated(status) {
+      this.authenticated = status;
+      },
+      logout() {
+        this.authenticated = false;
+      },
   },
 
   watch:{
@@ -118,6 +130,10 @@ export default {
     eventBus.$on('selected-stock', (selectedStock) => {
     this.selectedStock = selectedStock
     })
+
+    if(!this.authenticated) {
+        this.$router.replace({ name: "login" });
+    }
   }
 
 };
