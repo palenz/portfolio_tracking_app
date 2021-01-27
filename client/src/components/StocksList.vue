@@ -6,15 +6,15 @@
       <h3>Portfolio Summary</h3>
       <h4 v-if="currentPortfolioValue" >Total Portfolio Value: ${{currentPortfolioValue | numberFilter}}</h4>
       <h4 v-if="currentPortfolioValue" >Your Total Portfolio Value has changed by {{portfolioGrowth}}%</h4>
-      <button v-on:click="getSharesPrices">update summary</button>
+      <button v-on:click="getSharesPrices">Show Summary</button>
 
       <button v-on:click="showTransactions=portfolio">Show All Transactions</button>
       <ul>
         <li v-for='share in sharesSummary'>
           <p>{{share.symbol}}: {{share.shares}} shares </p>
           <div v-if='share.latestPrice' class="latest-price">
-            <p>The price at close is: ${{share.latestPrice | numberFilter}}</p>
-            <p>The value of your {{share.symbol}} holdings are: ${{share.latestPrice * share.shares | numberFilter}}</p>
+            <p>Latest price at close: ${{share.latestPrice | numberFilter}}</p>
+            <p>The value of your {{share.symbol}} holdings is: ${{share.latestPrice * share.shares | numberFilter}}</p>
             <growth-graph v-if="sharesSummary" :shareSummary="share" :portfolio="portfolio"></growth-graph>
           </div>
           <button v-on:click="filterTransactions(share.symbol)">Show {{share.symbol}} Transactions</button>
@@ -78,9 +78,7 @@ export default {
           `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${ticker}&outputsize=compact&apikey=${keys.key2}`
         ).then((res) => res.json());
       });
-      console.log(promises);
       Promise.all(promises).then((data) => {
-        console.log(data);
         for (let item of data) {
           const obj = item["Time Series (Daily)"];
           const arr = Object.values(obj);
@@ -125,9 +123,7 @@ export default {
     },
 
     getSharesPrices: function () {
-      console.log("hello");
       for (let i = 0; i < this.sharesSummary.length; i++) {
-        console.log(this.prices[i]);
         this.sharesSummary[i].latestPrice = this.prices[i];
       }
     }
