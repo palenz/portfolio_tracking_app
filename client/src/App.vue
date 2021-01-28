@@ -3,13 +3,14 @@
   <div id="app">
 
     <link rel="preconnect" href="https://fonts.gstatic.com"> 
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
     <header>
       <label class="switch" @click="darkThemeSwitch">
         <input type="checkbox">
         <span class="slider round" @click="darkThemeSwitch"></span>
       </label>
-      <h1 class="h1">Lorem Ipsum - "consectetur adipiscing"</h1>
+      <h1 class="h1">Stratton Oakmont - "Ushering in a new era of wealth"</h1>
       <!-- <h3 class="h2">"It's basically gambling"</h3> -->
 
     </header>
@@ -159,6 +160,8 @@ export default {
 .slider {
   position: absolute;
   cursor: pointer;
+  transform: translateX(4000px);
+  transform: translateY(-80px);
   top: 0;
   left: 0;
   right: 0;
@@ -205,6 +208,8 @@ input:checked + .slider:before {
 .h1 {
   font-size: 3.5em;
   font-family: Cinzel, serif;
+  transform: translateX(100px);
+  transform: translateY(0px);
 }
 
 .h2 {
