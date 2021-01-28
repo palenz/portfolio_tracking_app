@@ -1,11 +1,9 @@
 <template lang="html">
-<!-- <div>
+<div>
 
-    <p>The selected company is {{selectedStock}}</p>
-<div v-if='selectedStock'>
+    <div v-if='selectedStock'>
   
-
-    <form id="portfolio-form" v-on:submit='handleBuyStock'>
+        <form id="portfolio-form" v-on:submit='handleBuyStock'>
         <h2>Buy shares of {{selectedStock}}</h2>
         
             <label for="sharesNumber">Number of shares:</label>
@@ -14,9 +12,10 @@
             <label for="buyShares"></label>
             <input type="submit" value="Buy Shares"  name="buyShares" id="buy-shares">
 
-    </form>
+        </form>
+    </div>
 
-</div> -->
+</div>
 </template>
 
 <script>

@@ -11,7 +11,6 @@
         <span class="slider round" @click="darkThemeSwitch"></span>
       </label>
       <h1 class="h1">Stratton Oakmont - "Ushering in a new era of wealth"</h1>
-      <!-- <h3 class="h2">"It's basically gambling"</h3> -->
 
     </header>
 
@@ -36,8 +35,6 @@ import StocksList from "./components/StocksList.vue";
 import ChartItem from "./components/ChartItem.vue";
 import StockItem from "./components/StockItem.vue";
 import keys from "../.env/keys.js";
-// import login from "../views/login.vue";
-// import secure from "../views/secure.vue";
 
 export default {
   name: "app",
@@ -54,11 +51,6 @@ export default {
       portfolio: [],
       selectedStock: null,
       portfolioOwner: "",
-      authenticated: false,
-      mockAccount: {
-          username: "nraboy",
-          password: "password"
-        }
     }
   },
 
@@ -203,13 +195,12 @@ input:checked + .slider:before {
 
 .h1 {
   font-size: 3.5em;
-  font-family: Cinzel, serif;
   transform: translateX(100px);
   transform: translateY(0px);
 }
 
 .h2 {
   font-size: 1.5em;
-  font-family: Cinzel, serif;
 }
+
 </style>

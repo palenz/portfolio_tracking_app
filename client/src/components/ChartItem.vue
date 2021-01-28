@@ -1,8 +1,6 @@
 <template lang="html">
 
   <div>  
-  
-    <h2>Share Performance Chart</h2>
 
     <div v-if='stockData'>
       <table class="line-table">
