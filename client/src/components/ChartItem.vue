@@ -6,12 +6,12 @@
 
     <div v-if='stockData'>
       <table class="line-table">
-        <p></p>
-          <GChart
-          type="LineChart"
-          :data="shareChartData"
-         :options="chartOptions"
-        />
+      <p></p>
+      <GChart
+        type="AreaChart"
+        :data="shareChartData"
+        :options="chartOptions"
+      />
       </table>
     </div>
   </div>
@@ -36,6 +36,27 @@ export default {
         chart: {
           Title: "Share Performance",
           subtitle: "Last Quarter Daily Closing Price",
+        },
+        
+        vAxis: {
+          title: "US Dollars ($)",
+          format: 'currency',
+          gridlines: {color: '#CCC', minSpacing: 10, count: -1},
+          textStyle: {fontSize: 12}
+          },
+        hAxis: {
+          title: "Last Quarter Daily Closing Price",
+          showTextEvery: 10,
+          slantedText: false,
+          textStyle: {fontSize: 10},
+        },
+        
+        legend: {
+          position: 'top'
+        },
+
+        chartArea: {
+          width: '80%',
         },
       },
     };
