@@ -131,13 +131,9 @@ export default {
     eventBus.$on('selected-stock', (selectedStock) => {
     this.selectedStock = selectedStock
     })
-
-    if(!this.authenticated) {
-        this.$router.replace({ name: "login" });
-    }
   }
-
 };
+
 </script>
 
 <style lang="css" scoped>
