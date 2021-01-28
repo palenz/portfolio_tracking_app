@@ -34,6 +34,7 @@
             </tr>
           </tbody>
         </table>
+    </div>
 
     <div v-if='showTransactions'id="transaction-history">
       <h3>Transaction History</h3>
@@ -57,7 +58,6 @@
         </tbody>
       </table>
     </div>
-
   </div>
 </template>
 
