@@ -1,4 +1,4 @@
-# Share Prtfolio Tracker
+# Share Portfolio Tracker
 
 A single user app designed to track the value and growth of a small share portfolio. The app also allows the user to search for and view the prices of further share prices and add them to the portfolio
 
